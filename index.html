@@ -32,10 +32,11 @@
   }
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--bg)}
 html,body{margin:0}
-body{background:var(--bg);color:var(--ink);font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;-webkit-text-size-adjust:100%}
-main{max-width:640px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px) 16px calc(env(safe-area-inset-bottom) + 100px)}
-body.insession main{padding-top:0;padding-bottom:calc(env(safe-area-inset-bottom) + 112px)}
+body{background:var(--bg);color:var(--ink);font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;-webkit-text-size-adjust:100%;overscroll-behavior-y:none}
+main{max-width:640px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px) 16px calc(env(safe-area-inset-bottom) + 96px)}
+body.insession main{padding-top:0;padding-bottom:calc(env(safe-area-inset-bottom) + 104px)}
 h1,h2,h3{font-family:var(--display);letter-spacing:.005em}
 h1{font-size:38px;line-height:1;margin:4px 0 4px;font-weight:700}
 h2{font-size:22px;line-height:1.1;font-weight:600;margin:28px 0 10px}
@@ -43,13 +44,15 @@ h3{font-size:21px;line-height:1.15;font-weight:600;margin:0}
 p{margin:6px 0}
 .sub{color:var(--muted);margin:0}
 .muted{color:var(--muted)} .small{font-size:14px}
+.err{color:var(--heavy)}
 .grow{flex:1;min-width:0}
 .card{background:var(--card);border-radius:var(--r);padding:16px;margin:10px 0}
 .card.accent{background:var(--acc-soft)}
 .card.warn{background:var(--warn-soft)}
-.card.warn b{color:var(--warn)}
+.card.warn > b{color:var(--warn)}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
 .between{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .btn{appearance:none;border:0;background:var(--input);color:var(--ink);border-radius:14px;padding:10px 16px;font:inherit;font-weight:600;cursor:pointer;min-height:46px}
 .btn.primary{background:var(--acc);color:var(--acc-ink)}
 .btn.small{padding:7px 12px;min-height:36px;font-size:15px;border-radius:11px}
@@ -62,6 +65,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 input,select,textarea{font:inherit;color:var(--ink);background:var(--input);border:1.5px solid transparent;border-radius:12px;padding:10px 12px;min-height:46px;width:100%}
 input:focus,select:focus,textarea:focus{border-color:var(--acc);outline:none}
 textarea{resize:vertical}
+textarea.mono{font:12.5px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
 label{display:block;font-size:14px;color:var(--muted);margin:10px 0 0}
 label > input,label > select,label > textarea{margin-top:5px;color:var(--ink)}
 .inline{display:flex;align-items:center;gap:8px}
@@ -71,6 +75,8 @@ label > input,label > select,label > textarea{margin-top:5px;color:var(--ink)}
 .chip.miss{color:var(--heavy);box-shadow:inset 0 0 0 1px var(--heavy);background:transparent}
 .chip.info{background:var(--warn-soft)}
 .cdot{width:12px;height:12px;border-radius:50%;flex:none;display:inline-block}
+.tgl{border:0;border-radius:99px;font:inherit;font-size:12.5px;font-weight:600;padding:6px 11px;cursor:pointer;background:var(--input);color:var(--muted);min-height:32px}
+.tgl.on{background:var(--acc-soft);color:var(--acc)}
 /* listat */
 .group{background:var(--card);border-radius:var(--r);margin:10px 0;overflow:hidden}
 .lrow{display:flex;align-items:center;gap:12px;padding:13px 16px;border-top:1px solid var(--line)}
@@ -80,6 +86,7 @@ label > input,label > select,label > textarea{margin-top:5px;color:var(--ink)}
 .listrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-top:1px solid var(--line);cursor:pointer}
 .listrow:first-child{border-top:0}
 .chev{color:var(--muted);font-size:20px}
+details.card summary{cursor:pointer;color:var(--muted);font-size:15px;font-weight:600}
 /* tänään */
 .week{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin:16px 0 8px}
 .wd{background:var(--card);border-radius:14px;padding:8px 0 10px;text-align:center;min-height:88px}
@@ -100,9 +107,15 @@ label > input,label > select,label > textarea{margin-top:5px;color:var(--ink)}
 .hero p{margin:0;opacity:.9;font-size:15px}
 .hero .row{margin-top:16px}
 .hero .btn{background:#fff;color:var(--c);font-size:17px;min-height:52px;flex:1}
+.hero .btn.alt{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px rgba(255,255,255,.75);flex:0 0 auto}
+.btn.alt{background:transparent;box-shadow:inset 0 0 0 1.5px var(--line)}
 .rest{background:var(--card);border-radius:24px;padding:20px 18px;margin:18px 0 6px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chips .btn{background:var(--card)}
+.issues{margin:6px 0 0;padding-left:20px}
+.issues li{margin:5px 0}
+.issues .sugg{display:block;font-size:13px;color:var(--muted)}
+.pdots{display:flex;gap:3px;flex:none}
 /* treeni */
 .sesshead{position:sticky;top:0;z-index:4;background:var(--bg);margin:0 -16px 4px;padding:calc(env(safe-area-inset-top) + 10px) 16px 8px}
 .shrow{display:flex;align-items:center;gap:10px}
@@ -120,12 +133,16 @@ label > input,label > select,label > textarea{margin-top:5px;color:var(--ink)}
 .check.n{background:var(--none)}
 .exhead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
 .exhead h3{font-size:25px;line-height:1.05}
+.exhd-r{display:flex;gap:6px;align-items:center;flex:none}
+.info{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--acc);background:none;color:var(--acc);font:italic 700 16px/1 Georgia,serif;cursor:pointer;flex:none}
 .goal{font-size:14px;color:var(--muted);margin-top:6px}
 .goal b{color:var(--ink);font-weight:600}
 .shead,.srow{display:grid;grid-template-columns:22px 1fr 1fr;gap:10px;align-items:center}
-.shead.bw,.srow.bw{grid-template-columns:22px minmax(0,1fr) minmax(0,1fr)}
-.shead{font-size:12px;color:var(--muted);margin:14px 0 0;text-align:center}
-.srow{margin:8px 0}
+.shead{font-size:12px;color:var(--muted);margin:14px 0 2px;text-align:center}
+.sblock{padding:8px 0 10px;border-top:1px solid var(--line)}
+.sblock:first-of-type{border-top:0}
+.srate{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:center;margin-top:7px}
+.stime{font-size:12.5px;color:var(--muted);margin:5px 0 0 32px}
 .sn{font-family:var(--display);font-size:19px;color:var(--muted);text-align:center}
 .stp{display:grid;grid-template-columns:42px 1fr 42px;align-items:center;background:var(--input);border-radius:13px;height:50px}
 .stp button{border:0;background:none;color:var(--acc);font-size:26px;font-weight:500;height:50px;cursor:pointer;border-radius:13px}
@@ -134,37 +151,52 @@ label > input,label > select,label > textarea{margin-top:5px;color:var(--ink)}
 .exact{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
 .linkbtn{border:0;background:none;color:var(--acc);font:inherit;font-size:15px;font-weight:600;padding:8px 6px;cursor:pointer;min-height:40px}
 .linkbtn.danger{color:var(--heavy);margin-left:auto}
-.ask{font-size:14px;color:var(--muted);margin:12px 0 0}
+.ask{font-size:14px;color:var(--muted);margin:10px 0 0}
 .seg{display:flex;gap:6px;margin-top:8px}
 .seg button{flex:1;border:0;background:var(--input);color:var(--ink);font:inherit;font-size:15px;font-weight:600;padding:10px 4px;cursor:pointer;min-height:48px;border-radius:12px}
+.seg.sm{margin-top:0;gap:5px}
+.seg.sm button{min-height:38px;font-size:14px;padding:6px 2px;border-radius:10px}
 .seg button.on[data-r=easy]{background:var(--easy);color:#fff}
 .seg button.on[data-r=medium]{background:var(--med);color:#fff}
 .seg button.on[data-r=heavy]{background:var(--heavy);color:#fff}
 .seg.tabs{background:var(--card);padding:4px;border-radius:14px;gap:2px}
 .seg.tabs button{background:transparent;min-height:40px;font-size:14px;border-radius:10px}
 .seg.tabs button.on{background:var(--ink);color:var(--bg)}
-.rpill{font-size:13px;padding:3px 10px;border-radius:99px;color:#fff;flex:none}
-.r-easy{background:var(--easy)}.r-medium{background:var(--med)}.r-heavy{background:var(--heavy)}
 .hint{margin-top:10px;padding:10px 12px;border-radius:12px;font-size:14px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
-.hint.up{background:var(--acc-soft)}
+.hint.up,.hint.range,.hint.chain{background:var(--acc-soft)}
+.hint.coach{background:var(--acc-soft);box-shadow:inset 3px 0 0 var(--acc)}
 .hint.hold{background:var(--warn-soft)}
 .hint.info{background:var(--input)}
 .hint .btn{background:var(--acc);color:var(--acc-ink)}
 .big input{font-family:var(--display);font-size:26px;font-weight:600;height:54px}
-.sessbar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:color-mix(in srgb,var(--bg) 90%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);padding:10px 16px calc(env(safe-area-inset-bottom) + 10px);display:flex;gap:8px;justify-content:center}
-.sessbar .btn{min-height:54px;font-size:17px}
+.sessbar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--bg);border-top:1px solid var(--line);padding:10px 16px calc(env(safe-area-inset-bottom) + 10px);display:flex;gap:8px;justify-content:center}
+.sessbar .btn{min-height:52px;font-size:17px}
 .sessbar .btn.primary{flex:1;max-width:480px}
 body.insession nav{display:none}
 /* historia */
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:middle}
+.pdots .dot{margin:0;width:9px;height:9px}
 .d-easy{background:var(--easy)}.d-medium{background:var(--med)}.d-heavy{background:var(--heavy)}.d-none{background:var(--none)}
-.bar{display:grid;grid-template-columns:104px 1fr 30px;gap:8px;align-items:center;margin:7px 0;font-size:14px}
-.bar .track{background:var(--input);border-radius:6px;height:14px;overflow:hidden}
+.bar{display:grid;grid-template-columns:96px 1fr 64px;gap:8px;align-items:center;margin:9px 0;font-size:14px}
+.bar b{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+.bar b small{color:var(--muted);font-weight:400}
+.bar .track{position:relative;background:var(--input);border-radius:6px;height:14px}
 .bar .fill{background:var(--acc);height:100%;border-radius:6px}
+.bar .fill.over{background:var(--heavy)}
+.bar .fill.under{background:var(--med)}
+.tick{position:absolute;top:-4px;bottom:-4px;width:2px;border-radius:1px;background:var(--ink);opacity:.5}
 .tbl{width:100%;border-collapse:collapse;font-size:13px}
 .tbl th,.tbl td{padding:6px 4px;text-align:center;border-top:1px solid var(--line)}
 .tbl th{font-weight:600;color:var(--muted)}
 .tbl th:first-child,.tbl td:first-child{text-align:left}
+.tl{display:grid;grid-template-columns:44px 1fr 14px;gap:2px 8px;align-items:center;font-size:14px;padding:7px 0;border-top:1px solid var(--line)}
+.tl:first-child{border-top:0}
+.tl.chg{border-top:2px solid var(--ink)}
+.tl .dot{margin:0}
+.tlr{grid-column:2/4;font-size:12px;color:var(--muted)}
+.pick{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line)}
+.pick:first-child{border-top:0}
+.pick input{width:22px;min-height:22px;margin-top:2px;flex:none}
 /* suunnitelma */
 .itemrow{border-top:1px solid var(--line);padding:10px 0}
 .itemrow .mini{display:flex;gap:6px;align-items:center;margin-top:6px;flex-wrap:wrap}
@@ -173,21 +205,33 @@ body.insession nav{display:none}
 .swatches{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
 .sw{width:36px;height:36px;border-radius:50%;border:0;cursor:pointer}
 .sw.on{box-shadow:0 0 0 3px var(--card),0 0 0 5px var(--ink)}
+.mgrid{display:grid;grid-template-columns:1fr 76px;gap:6px 10px;align-items:center;margin-top:8px}
+.mgrid input{text-align:center;min-height:40px;padding:6px}
+.trow{display:grid;grid-template-columns:1fr 58px 58px 34px;gap:6px;align-items:center;margin:6px 0}
+.trow input{padding:8px 6px;min-height:42px}
+.trow input.n{text-align:center}
+.thead{font-size:12px;color:var(--muted)}
+.rrow{display:grid;grid-template-columns:1fr auto 52px auto 1fr 30px;gap:5px;align-items:center;margin:8px 0;font-size:14px}
+.rrow select{padding:8px 6px;min-height:40px;font-size:14px}
+.rrow input{text-align:center;padding:8px 2px;min-height:40px}
+.drow{display:grid;grid-template-columns:1fr auto 1fr auto 34px;gap:6px;align-items:center;margin:6px 0;font-size:14px;color:var(--muted)}
+.drow input{text-align:center;min-height:42px;padding:8px 4px}
 .u{font-size:12px;color:var(--muted)}
-.x{border:0;background:none;color:var(--muted);font-size:22px;cursor:pointer;min-height:40px;min-width:36px}
+.x{border:0;background:none;color:var(--muted);font-size:22px;cursor:pointer;min-height:40px;min-width:34px}
 svg text{fill:var(--muted);font-size:10px}
+svg text.lab{fill:var(--ink);font-size:10.5px;font-weight:600}
 svg .grid{stroke:var(--line)}
 svg .ln{stroke:var(--acc);fill:none;stroke-width:2.5}
-/* navigaatio */
-nav{position:fixed;left:0;right:0;bottom:0;background:color-mix(in srgb,var(--card) 92%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom);z-index:5}
+/* navigaatio: kiinteä, läpinäkymätön palkki alareunassa */
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom);z-index:5}
 nav button{flex:1;border:0;background:none;color:var(--muted);font:inherit;font-size:11px;font-weight:600;padding:7px 2px 8px;cursor:pointer;min-height:56px}
 nav svg{display:block;margin:0 auto 2px;width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 nav button.on{color:var(--acc)}
 #modalbg{position:fixed;inset:0;background:rgba(10,16,24,.5);display:flex;align-items:flex-end;justify-content:center;z-index:10}
 #modalbg .panel{background:var(--bg);width:100%;max-width:640px;max-height:88vh;overflow:auto;border-radius:24px 24px 0 0;padding:18px 16px calc(env(safe-area-inset-bottom) + 18px)}
-#toast{position:fixed;left:50%;transform:translateX(-50%) translateY(8px);bottom:calc(env(safe-area-inset-bottom) + 76px);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;font-size:15px;font-weight:600;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;z-index:20;white-space:nowrap}
+#toast{position:fixed;left:50%;transform:translateX(-50%) translateY(8px);bottom:calc(env(safe-area-inset-bottom) + 76px);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;font-size:15px;font-weight:600;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;z-index:20;max-width:92vw;text-align:center}
 #toast.show{opacity:1;transform:translateX(-50%)}
-body.insession #toast{bottom:calc(env(safe-area-inset-bottom) + 86px)}
+body.insession #toast{bottom:calc(env(safe-area-inset-bottom) + 84px)}
 .empty{text-align:center;color:var(--muted);padding:28px 8px}
 @media (prefers-reduced-motion: reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
@@ -202,30 +246,82 @@ body.insession #toast{bottom:calc(env(safe-area-inset-bottom) + 86px)}
 </nav>
 <div id="modal"></div>
 <div id="toast"></div>
-<input type="file" id="importfile" accept=".json,application/json" hidden>
+<input type="file" id="importfile" accept=".json,application/json,text/plain" hidden>
 <script>
 'use strict';
-const KEY='treeni.v1', DRAFT_KEY='treeni.draft';
+const KEY='treeni.v1', DRAFT_KEY='treeni.draft', APPV='6.1';
 const WD=['su','ma','ti','ke','to','pe','la'];
 const WD_LONG=['sunnuntai','maanantai','tiistai','keskiviikko','torstai','perjantai','lauantai'];
 const WD_EVERY=['sunnuntaisin','maanantaisin','tiistaisin','keskiviikkoisin','torstaisin','perjantaisin','lauantaisin'];
 const RATE={easy:'Helppo',medium:'Keskiraskas',heavy:'Raskas'};
+const RATE_S={easy:'Helppo',medium:'Keski',heavy:'Raskas'};
+const RATE_L={easy:'H',medium:'K',heavy:'R'};
+const RANK={easy:1,medium:2,heavy:3};
 const PALETTE=['#2F55D4','#C85F12','#23874D','#6B45C2','#B83E7C','#157F8A','#4F5D6E','#B8860B'];
-const EQUIP={machine:'Laite',free:'Tanko / muu vapaa paino',dumbbell:'Käsipainot',bodyweight:'Kehonpaino'};
+const EQUIP={machine:'Laite',free:'Tanko / vapaa paino',dumbbell:'Käsipainopari',dumbbell1:'Yksi käsipaino',bodyweight:'Kehonpaino'};
 const SCHED={fixed:'Kiinteä viikonpäivä',flexible:'Joustava viikkokiintiö',adhoc:'Satunnainen (ei aikataulua)'};
 const LOG={tick:'Pelkkä kuittaus',full:'Sarjat, toistot ja painot',activity:'Kesto ja matka'};
+const COACH_EXAMPLE=`{
+  "muoto": "treeni-valmennus",
+  "versio": 1,
+  "pvm": "2026-11-22",
+  "yhteenveto": "Lyhyt kuvaus viikon havainnoista",
+  "liikkeet": [
+    {"id": "penkki", "nimi": "Penkkipunnerrus", "paino": 42.5, "toistot": 8, "perustelu": "Kaikki sarjat 12 helposti"},
+    {"id": "leuka", "toistoalue": [5, 8], "perustelu": "3×5 on mennyt helposti kahdesti"},
+    {"id": "kpsoutu", "lisays": 2, "perustelu": "Lisää 2 kg edelliseen"}
+  ],
+  "lihastavoitteet": [{"ryhma": "etureisi", "max": 6}]
+}`;
 
-let S=null, draft=null, persisted=false;
-const view={tab:'today',sub:null,hsub:'summary',hex:null,mweek:null};
+/* Liiketietämys: lihaskertoimet (1 = päälihas, 0,5 = avustava) ja lyhyt suoritusohje. Ensimmäinen osuma nimeen ratkaisee. */
+const KNOW=[
+  [/ojentaja/,{ojentaja:1},'Pidä käsipainoa molemmin käsin pään takana, kyynärpäät osoittavat ylös ja pysyvät paikallaan. Ojenna kädet suoriksi ja laske hallitusti niskan taakse.'],
+  [/pec\s*fly|peck|rintaflye|\bflye/,{rinta:1},'Selkä tukea vasten, kyynärpäät lievästi koukussa. Tuo kädet kaarena rinnan eteen ja purista rintalihakset yhteen. Palauta hallitusti, älä anna painon vetää olkapäitä taakse.'],
+  [/penkki|rintaprässi/,{rinta:1,ojentaja:0.5,hartiat:0.5},'Lapaluut yhteen ja alas, jalat tukevasti lattiassa. Laske tanko hallitusti rinnan alaosaan kyynärpäät noin 45° vartalosta. Punnerra ylös lukitsematta kyynärpäitä täysin.'],
+  [/pystypunnerrus|olkapääprässi|olkaprässi/,{hartiat:1,ojentaja:0.5},'Vatsa ja pakarat jännitettyinä, ei notkoselkää. Punnerra painot korvien tasolta suoraan ylös. Laske hallitusti leuan tasolle.'],
+  [/jalat koholla|koroke.*punnerrus|punnerrus.*koroke/,{rinta:1,hartiat:0.5,ojentaja:0.5},'Jalat korokkeella, keho suorana linjana päästä kantapäihin. Laske rinta lähelle lattiaa kyynärpäät noin 45° vartalosta. Mitä korkeammalla jalat, sitä enemmän kuorma siirtyy olkapäille.'],
+  [/punnerrus/,{rinta:1,ojentaja:0.5,hartiat:0.5},'Kädet hieman hartioita leveämmälle, keho suorana linjana päästä kantapäihin. Laske rinta lähelle lattiaa kyynärpäät noin 45° vartalosta. Punnerra ylös vatsa jännitettynä.'],
+  [/etukumara|takaolkap/,{hartiat:1,ylaselka:0.5},'Taivuta lantiosta eteen selkä suorana, käsipainot roikkuvat alla. Nosta kädet sivuille kyynärpäät lievästi koukussa olkapäiden tasolle. Liike tulee takaolkapäistä, ei heilautuksesta.'],
+  [/rear\s*delt|reverse\s*fly|takahartia/,{hartiat:1,ylaselka:0.5},'Rintakehä tukea vasten, kädet suorina eteen. Vie kädet kaarena sivuille ja taakse olkapäiden tasolla, kyynärpäät lievästi koukussa. Älä nosta hartioita korviin.'],
+  [/vipunosto|sivunosto/,{hartiat:1},'Seiso ryhdikkäästi, käsipainot sivuilla. Nosta kädet sivuille olkapäiden korkeudelle kyynärpäät lievästi koukussa. Laske hitaasti, älä heilauta.'],
+  [/leuanveto|leuka/,{ylaselka:1,hauis:0.5},'Ote hartioita leveämmältä. Aloita vetämällä lapaluita alas ja vedä leuka tangon yli ilman heilautusta. Laske hallitusti suorille käsille.'],
+  [/ylätalja/,{ylaselka:1,hauis:0.5},'Reidet tukien alla. Vedä tanko solisluiden tasolle lapaluut alas ja yhteen, rintakehä ylhäällä. Palauta hallitusti nojaamatta taaksepäin.'],
+  [/soutu.*(yhdellä|yhden)|(yhdellä|yhden).*soutu/,{ylaselka:1,hauis:0.5},'Tue toinen käsi ja polvi penkkiin, selkä suorana. Vedä käsipaino lantiota kohti kyynärpää lähellä kylkeä. Laske suoraksi ja tunne venytys lapaluussa.'],
+  [/soutu/,{ylaselka:1,hauis:0.5},'Istu tai seiso ryhdikkäästi rinta ylhäällä. Vedä kahvat vatsaan kyynärpäät lähellä kylkiä ja purista lapaluut yhteen. Palauta hallitusti pyöristämättä selkää.'],
+  [/pullover/,{ylaselka:1,rinta:0.5},'Makaa penkillä ja pidä yhtä käsipainoa molemmin käsin rinnan yllä. Laske paino kaarena pään taakse kyynärpäät lievästi koukussa, kunnes tunnet venytyksen. Vedä takaisin rinnan ylle.'],
+  [/hauis/,{hauis:1},'Seiso ryhdikkäästi, kyynärpäät kylkien vieressä. Koukista käsipainot ylös kämmenet ylöspäin. Laske hitaasti suoriksi ilman heilautusta.'],
+  [/selänojennus/,{alaselka:1,pakarat:0.5,takareisi:0.5},'Lantio tyynyn reunalla, lisäpaino rintaa vasten. Laske ylävartaloa hallitusti alas selkä neutraalina. Nouse suoraan linjaan, älä yliojenna.'],
+  [/yhden jalan.*(maastaveto|romania)/,{takareisi:1,pakarat:0.5},'Seiso yhdellä jalalla polvi lievästi koukussa. Kallista ylävartaloa eteen lantiosta ja vie vapaa jalka suorana taakse, selkä neutraalina. Nouse pakaraa puristaen, lantio pysyy suorassa.'],
+  [/romanialainen|maastaveto/,{takareisi:1,pakarat:0.5,alaselka:0.5},'Polvet lievästi koukussa, selkä neutraalina. Työnnä lantiota taakse ja laske painot reisiä pitkin, kunnes takareisissä venyttää. Nouse ojentamalla lantio, painot lähellä jalkoja.'],
+  [/pistooli/,{etureisi:1,pakarat:0.5},'Seiso yhdellä jalalla, toinen jalka suorana eteen. Kyykisty niin syvälle kuin tekniikka sallii: kantapää maassa, polvi varpaiden suuntaan. Ota tarvittaessa tuki tai kyykkää korokkeelle.'],
+  [/askelkyykky|askel/,{etureisi:1,pakarat:0.5},'Ota pitkä askel eteen ja laske takapolvi lähelle lattiaa. Etupolvi pysyy nilkan yläpuolella, ylävartalo pystyssä. Ponnista etujalalla takaisin.'],
+  [/jalkaprässi/,{etureisi:1,pakarat:0.5},'Jalat lantion levyisesti levyllä. Laske hallitusti, kunnes polvet ovat noin 90°, alaselkä pysyy tukea vasten. Punnerra ylös lukitsematta polvia.'],
+  [/kyykky/,{etureisi:1,pakarat:0.5},'Jalat hartioiden levyisesti, varpaat hieman ulos. Laske lantio alas ja taakse selkä neutraalina, polvet varpaiden suuntaan. Nouse kantapäillä työntäen.'],
+  [/reiden ojennus|reiden ojentaja/,{etureisi:1},'Selkä tukea vasten, polvet laitteen akselin kohdalla. Ojenna jalat suoriksi ja purista etureisiä. Laske hitaasti.'],
+  [/reiden koukistus|koukistus/,{takareisi:1},'Tyyny nilkkojen takana, polvet laitteen akselin kohdalla. Koukista kantapäät kohti pakaroita ja laske hitaasti.'],
+  [/lantionnosto|hip thrust|pakaranosto/,{pakarat:1,takareisi:0.5},'Hartiat penkillä tai lattialla, jalat lantion levyisesti. Nosta lantio ylös puristaen pakaroita, kylkiluut alhaalla. Laske hallitusti.'],
+  [/pohje/,{pohkeet:1},'Seiso päkiöillä korokkeen reunalla. Laske kantapäät alas venytykseen ja nouse niin korkealle kuin pääset. Pidä hetki yläasennossa.'],
+  [/yhden jalan lankku/,{keski:1},'Kuten lankku, mutta nosta toinen jalka suorana irti. Lantio pysyy vaakatasossa eikä kierry.'],
+  [/lankku/,{keski:1},'Kyynärvarret hartioiden alla, keho suorana linjana päästä kantapäihin. Jännitä vatsa ja pakarat, älä päästä lantiota roikkumaan tai nousemaan.'],
+  [/jalannosto/,{keski:1},'Roiku tangossa hartiat aktiivisina. Nosta jalat tai polvet vatsalihaksilla kallistaen lantiota, ilman heilautusta. Laske hitaasti.'],
+  [/rutistus|vatsa/,{keski:1},'Pyöristä selkää rintakehä lantiota kohti vatsalihaksilla. Liike on lyhyt ja hallittu, älä vedä niskasta. Palauta hitaasti.'],
+  [/kanta|farmer/,{keski:1,ylaselka:0.5},'Raskaat käsipainot sivuilla, seiso ryhdikkäästi lapaluut alhaalla. Kävele lyhyin askelin ilman vartalon kallistumista. Laske painot hallitusti.']
+];
+
+let S=null, draft=null, persisted=false, pendingCoach=null;
+const view={tab:'today',sub:null,hsub:'summary',hex:null,mweek:null,reportTxt:'',reportWs:null};
 
 /* ---------- apu ---------- */
 const uid=()=>Math.random().toString(36).slice(2,9)+Date.now().toString(36).slice(-4);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const num=v=>{if(v===null||v===undefined)return null;const s=String(v).trim().replace(',','.');if(s==='')return null;const n=Number(s);return isFinite(n)?n:null;};
+const r2=n=>Math.round(n*100)/100;
 const fmt=n=>n==null||n===''?'':Number(n).toLocaleString('fi-FI',{maximumFractionDigits:2});
 const fmtIn=n=>n==null||n===''?'':String(n).replace('.',',');
 const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
 const z=n=>String(n).padStart(2,'0');
+const normName=s=>String(s||'').toLowerCase().replace(/\(.*?\)/g,'').replace(/\s+/g,' ').trim();
 function ymd(d=new Date()){return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate());}
 function parseYmd(s){const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d);}
 function addDays(s,n){const d=parseYmd(s);d.setDate(d.getDate()+n);return ymd(d);}
@@ -234,26 +330,27 @@ function isoWeek(s){const d=parseYmd(s);d.setDate(d.getDate()+3-((d.getDay()+6)%
 function fmtDM(s){const d=parseYmd(s);return d.getDate()+'.'+(d.getMonth()+1)+'.';}
 function fmtDay(s){const d=parseYmd(s);return WD[d.getDay()]+' '+fmtDM(s);}
 function daysBetween(a,b){return Math.round((parseYmd(b)-parseYmd(a))/864e5);}
+function hm(t){const d=new Date(t);return z(d.getHours())+'.'+z(d.getMinutes());}
+function hms(t){const d=new Date(t);return z(d.getHours())+':'+z(d.getMinutes())+':'+z(d.getSeconds());}
+function durTxt(sec){if(sec==null||sec<0)return '';if(sec>=3600)return Math.round(sec/60)+' min';const m=Math.floor(sec/60),s=Math.round(sec%60);return m?(s?`${m} min ${s} s`:`${m} min`):`${s} s`;}
+const byT=(a,b)=>a.date.localeCompare(b.date)||(a.createdAt||0)-(b.createdAt||0);
 
 /* ---------- aloitusdata ---------- */
 function seed(){
-  const mg=[['ylaselka','Yläselkä'],['alaselka','Alaselkä'],['rinta','Rinta'],['hartiat','Hartiat'],['hauis','Hauis'],['ojentaja','Ojentaja'],['keski','Keskivartalo'],['etureisi','Etureisi'],['takareisi','Takareisi'],['pakarat','Pakarat'],['pohkeet','Pohkeet']].map(([id,name])=>({id,name}));
+  const mg=[['ylaselka','Yläselkä'],['alaselka','Alaselkä'],['rinta','Rinta'],['hartiat','Hartiat'],['hauis','Hauis'],['ojentaja','Ojentaja'],['keski','Keskivartalo'],['etureisi','Etureisi'],['takareisi','Takareisi'],['pakarat','Pakarat'],['pohkeet','Pohkeet']].map(([id,name])=>({id,name,min:null,max:null}));
   const {exercises:ex,types}=seedProgram();
   return {version:1,seedVersion:2,
-    settings:{gymStep:0.5,dbHandle:3,dbDisks:[0.75,1.25,1.75,2.25],dbBarOnly:false,handWeights:[],repsMin:8,repsMax:12,heavyCount:2,lastExport:null},
-    muscleGroups:mg,exercises:ex,types,
-    sessions:[]};
+    settings:{gymStep:0.5,dbHandle:3,dbDisks:[0.75,1.25,1.75,2.25],dbMaxPerSide:4,dbBarOnly:false,repsMin:8,repsMax:12,heavyCount:2,lastExport:null},
+    muscleGroups:mg,exercises:ex,types,combos:null,sessions:[]};
 }
 function seedProgram(){
   const exercises=[
-    // sali
     ['penkki','Penkkipunnerrus','rinta','free',2.5],
     ['soutu_istuen','Istuen soutu','ylaselka','machine'],
     ['leuka','Leuanveto','ylaselka','bodyweight'],
     ['selanojennus','Selänojennus','alaselka','free',2.5],
     ['reardelt','Rear delt','hartiat','machine'],
     ['jalannosto','Roikkuvat jalannostot','keski','bodyweight'],
-    // koti
     ['pistooli','Pistoolikyykky','etureisi','bodyweight'],
     ['lankku','Lankku (s)','keski','bodyweight'],
     ['punnerrus','Punnerrus','rinta','bodyweight'],
@@ -263,14 +360,14 @@ function seedProgram(){
     ['ojentaja','Ojentajaliike pään yli','ojentaja','dumbbell'],
     ['rdl','Romanialainen maastaveto käsipainoilla','takareisi','dumbbell'],
     ['askel','Askelkyykky (toistot/jalka)','etureisi','bodyweight'],
-    ['kpsoutu','Käsipainosoutu yhdellä kädellä','ylaselka','dumbbell'],
+    ['kpsoutu','Käsipainosoutu yhdellä kädellä','ylaselka','dumbbell1'],
     ['pystyp','Pystypunnerrus käsipainoilla','hartiat','dumbbell'],
     ['vipu','Vipunosto sivulle','hartiat','dumbbell'],
-    ['pullover','Pullover','ylaselka','dumbbell'],
+    ['pullover','Pullover','ylaselka','dumbbell1'],
     ['pohje','Pohjenousu','pohkeet','bodyweight'],
     ['kanto','Kantaminen (m)','keski','dumbbell']
   ].map(([id,name,muscle,equip,step])=>({id,name,muscle,equip,step:step??null}));
-  const it=(exId,sets,repsMin,repsMax,weight='')=>({exId,sets,repsMin,repsMax:repsMax??repsMin,weight});
+  const it=(exId,sets,repsMin,repsMax,weight='')=>({exId,sets,repsMin,repsMax:repsMax??repsMin,weight,core:true});
   const types=[
     {id:'t_gym',color:'#2F55D4',name:'Salitreeni',schedule:'flexible',quota:2,weekday:1,pair:'',logStyle:'full',templates:[
       {id:'p_gym',name:'Salitreeni',note:'Lämmittely: 5 min soutu',items:[it('penkki',3,8,12),it('soutu_istuen',3,8,12),it('leuka',3,5),it('selanojennus',3,15,15,5),it('reardelt',3,8,12),it('jalannosto',3,10)]}]},
@@ -286,40 +383,69 @@ function seedProgram(){
   ];
   return {exercises,types};
 }
-function applySeedProgram(d){const p=seedProgram();d.exercises=p.exercises;d.types=p.types;d.muscleGroups=seed().muscleGroups;d.seedVersion=2;}
+function applySeedProgram(d){const p=seedProgram();d.exercises=p.exercises;d.types=p.types;d.muscleGroups=seed().muscleGroups;d.combos=null;d.seedVersion=2;}
+function knowFor(name){const n=String(name||'').toLowerCase();for(const [re,m,desc] of KNOW)if(re.test(n))return {muscles:m,desc};return null;}
+function primaryOf(m){let b=null,bv=-1;for(const [k,v] of Object.entries(m||{}))if(v>bv){b=k;bv=v;}return b;}
+function enrichExercise(x,gids){
+  if(!x.muscles||typeof x.muscles!=='object'){
+    const k=knowFor(x.name);const m=k?{...k.muscles}:{};
+    Object.keys(m).forEach(g=>{if(!gids.has(g))delete m[g];});
+    if(x.muscle&&gids.has(x.muscle)&&!m[x.muscle])m[x.muscle]=1;
+    x.muscles=m;
+  }
+  if(x.desc==null){const k=knowFor(x.name);x.desc=k?k.desc:'';}
+  if(x.base===undefined)x.base=(x.equip==='machine'&&x.step===7)?1:null;
+  if(x.ladder===undefined)x.ladder=null;
+  if(x.easier===undefined)x.easier=null;
+  if(x.archived===undefined)x.archived=false;
+  if(x.next===undefined)x.next=null;
+  x.muscle=primaryOf(x.muscles)||x.muscle||'';
+}
 function normalize(d){
   const def=seed();
   d.settings=Object.assign({},def.settings,d.settings||{});
+  const st=d.settings;
   ['muscleGroups','exercises','types','sessions'].forEach(k=>{if(!Array.isArray(d[k]))d[k]=def[k];});
-  d.types.forEach(t=>{t.templates=t.templates||[];t.templates.forEach(p=>{p.items=p.items||[];p.items.forEach(it=>{
-    if(it.repsMin==null){const r=parseInt(it.reps)||10;it.repsMin=r;it.repsMax=r+2;}delete it.reps;});});});
-  d.types.forEach((t,i)=>{if(!t.color)t.color=PALETTE[i%PALETTE.length];if(t.pair==null)t.pair='';t.templates.forEach(p=>{if(p.note==null)p.note='';});});
+  if(!Array.isArray(d.combos))d.combos=null;
+  d.types.forEach((t,i)=>{
+    t.templates=t.templates||[];if(!t.color)t.color=PALETTE[i%PALETTE.length];if(t.pair==null)t.pair='';
+    t.templates.forEach(p=>{p.items=p.items||[];if(p.note==null)p.note='';p.items.forEach(it=>{
+      if(it.repsMin==null){const r=parseInt(it.reps)||10;it.repsMin=r;it.repsMax=r+2;}delete it.reps;if(it.core===undefined)it.core=true;});});
+  });
   if((d.seedVersion||1)<2&&!d.sessions.length)applySeedProgram(d);
-  d.settings.handWeights=[...dbCombos(d.settings).keys()];
+  const gids=new Set(d.muscleGroups.map(g=>g.id));
+  /* Versio 6: levyt kokonaismäärinä (molemmat käsipainot yhteensä) */
+  if(!Array.isArray(st.dbDiskCounts)){
+    const occ={};(st.dbDisks||[]).forEach(w=>{const k=r2(+w);if(k>0)occ[k]=(occ[k]||0)+1;});
+    st.dbDiskCounts=Object.entries(occ).map(([w,c])=>({w:+w,n:Math.max(4,2*c)})).sort((a,b)=>a.w-b.w);
+  }
+  delete st.dbDisks;delete st.handWeights;delete st.easyCount;delete st.windowDays;
+  if(!Array.isArray(st.ratioRules))st.ratioRules=(gids.has('takareisi')&&gids.has('etureisi'))?[{a:'takareisi',b:'etureisi',k:1}]:[];
+  const firstV6=!d.schema||d.schema<6;
+  d.muscleGroups.forEach(g=>{if(g.min===undefined)g.min=null;if(g.max===undefined)g.max=null;});
+  if(firstV6){const fe=d.muscleGroups.find(g=>g.id==='etureisi');if(fe&&fe.max==null)fe.max=6;}
+  d.exercises.forEach(x=>enrichExercise(x,gids));
+  if(firstV6)d.types.forEach(t=>{if(t.templates.some(p=>p.items.length))t.templates=t.templates.filter(p=>p.items.length);});
+  if(d.combos==null){
+    d.combos=[];const q=d.types.find(t=>t.id==='t_quick'),s=d.types.find(t=>t.id==='t_short');
+    if(q&&s&&q.templates[0]&&s.templates[0])d.combos.push({id:'c_pika_lyhyt',name:'Pika + lyhyt',parts:[{typeId:q.id,tplId:q.templates[0].id},{typeId:s.id,tplId:s.templates[0].id}]});
+  }
+  d.schema=6;
   return d;
 }
-/* Käsipainot: kahva + levypareja (yksi levy kummallekin puolelle). Palauttaa painon -> levyt per puoli. */
-function dbCombos(st){
-  const disks=(st.dbDisks||[]).filter(x=>x>0),handle=st.dbHandle||0,res=new Map();
-  for(let m=0;m<(1<<disks.length);m++){
-    if(m===0&&!st.dbBarOnly)continue;
-    const used=disks.filter((_,i)=>m&(1<<i)).sort((a,b)=>b-a);
-    const w=Math.round((handle+2*used.reduce((a,b)=>a+b,0))*100)/100;
-    if(!res.has(w)||res.get(w).length>used.length)res.set(w,used);
-  }
-  return new Map([...res.entries()].sort((a,b)=>a[0]-b[0]));
-}
-function diskText(w){
-  const used=dbCombos(S.settings).get(w);
-  if(!used)return '';
-  return used.length?'levyt puolelle: '+used.map(fmt).join(' + '):'pelkkä kahva';
+function normDraft(d){
+  if(!d)return null;
+  (d.exercises||[]).forEach(e=>{e.sets.forEach(s=>{if(s.rating===undefined)s.rating=(e.collapsed&&e.rating)||null;if(s.t===undefined)s.t=null;});if(e.part==null)e.part=0;});
+  if(d.kind==='full'&&!d.parts&&!d.editing)d.parts=[{typeId:d.typeId,typeName:d.typeName,templateId:d.templateId,templateName:d.templateName}];
+  return d;
 }
 
 /* ---------- tallennus ---------- */
 function load(){
-  try{const r=localStorage.getItem(KEY);S=normalize(r?JSON.parse(r):seed());}catch(e){S=seed();}
-  try{draft=JSON.parse(localStorage.getItem(DRAFT_KEY)||'null');}catch(e){draft=null;}
+  try{const r=localStorage.getItem(KEY);S=normalize(r?JSON.parse(r):seed());}catch(e){S=normalize(seed());}
+  try{draft=normDraft(JSON.parse(localStorage.getItem(DRAFT_KEY)||'null'));}catch(e){draft=null;}
   if(draft) view.tab='session';
+  save();
 }
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){alert('Tallennus epäonnistui: '+e.message);}}
 let saveTimer=null;
@@ -335,43 +461,114 @@ const exById=id=>S.exercises.find(x=>x.id===id);
 const mgName=id=>(S.muscleGroups.find(g=>g.id===id)||{}).name||'Muu';
 const sortedSessions=()=>[...S.sessions].sort((a,b)=>b.date.localeCompare(a.date)||(b.createdAt||0)-(a.createdAt||0));
 const byName=(a,b)=>a.name.localeCompare(b.name,'fi');
+const sr=(s,e)=>(s&&s.rating)||(e&&e.rating)||null;
+function hardest(sets,e){let r=null;(sets||[]).forEach(s=>{const x=sr(s,e);if(x&&(!r||RANK[x]>RANK[r]))r=x;});return r;}
+const draftParts=d=>d.parts||[{typeId:d.typeId,typeName:d.typeName,templateId:d.templateId,templateName:d.templateName}];
+function musclesOf(e){const x=exById(e.exId);if(x&&x.muscles&&Object.keys(x.muscles).length)return x.muscles;if(e.muscles)return e.muscles;return e.muscle?{[e.muscle]:1}:{};}
+const muscTxt=m=>Object.entries(m||{}).sort((a,b)=>b[1]-a[1]).map(([g,w])=>`${mgName(g)} ${fmt(w)}`).join(', ')||'–';
 
-function lastPerf(exId){
-  for(const s of sortedSessions()){const e=(s.exercises||[]).find(e=>e.exId===exId);if(e)return {date:s.date,sets:e.sets,rating:e.rating};}
+function occurrences(exId,n){const o=[];for(const s of sortedSessions()){const e=(s.exercises||[]).find(e=>e.exId===exId);if(e){o.push({date:s.date,e});if(o.length>=n)break;}}return o;}
+function chainOf(exId){
+  let root=exId,x=exById(exId);const seen=new Set([exId]);
+  while(x&&x.easier&&exById(x.easier)&&!seen.has(x.easier)){root=x.easier;seen.add(root);x=exById(root);}
+  const out=[root],inn=new Set(out);let cur=root;
+  for(let g=0;g<50;g++){const h=S.exercises.find(e=>e.easier===cur&&!inn.has(e.id));if(!h)break;out.push(h.id);inn.add(h.id);cur=h.id;}
+  if(!out.includes(exId))out.push(exId);
+  return out;
+}
+const harderOf=exId=>S.exercises.find(x=>x.easier===exId&&!x.archived)||null;
+
+/* ---------- painot ---------- */
+const nDbOf=ex=>ex&&ex.equip==='dumbbell1'?1:2;
+const isDb=ex=>ex&&(ex.equip==='dumbbell'||ex.equip==='dumbbell1');
+/* Käsipainot: levyjä on rajallinen määrä yhteensä. Pari = sama kuorma molempiin käsipainoihin (4 levyä per koko per levy/puoli), yksi = 2 levyä. */
+function dbMap(nDb){
+  const st=S.settings,sizes=(st.dbDiskCounts||[]).filter(d=>d.w>0&&d.n>0),handle=st.dbHandle||0,res=new Map(),maxSide=st.dbMaxPerSide||99;
+  const lim=sizes.map(d=>Math.min(6,Math.floor(d.n/(2*nDb))));
+  const rec=(i,used)=>{
+    if(i===sizes.length){
+      if(!used.length&&!st.dbBarOnly)return;
+      const w=r2(handle+2*used.reduce((a,b)=>a+b,0));
+      if(!res.has(w)||res.get(w).length>used.length)res.set(w,[...used].sort((a,b)=>b-a));
+      return;}
+    for(let k=0;k<=lim[i]&&used.length+k<=maxSide;k++)rec(i+1,used.concat(Array(k).fill(sizes[i].w)));
+  };
+  rec(0,[]);
+  return new Map([...res.entries()].sort((a,b)=>a[0]-b[0]));
+}
+function diskText(w,ex){const u=dbMap(nDbOf(ex)).get(w);if(!u)return '';return u.length?'levyt puolelle: '+u.map(fmt).join(' + '):'pelkkä kahva';}
+function weightList(ex){
+  if(!ex)return null;
+  if(isDb(ex))return [...dbMap(nDbOf(ex)).keys()];
+  if(ex.ladder&&ex.ladder.length)return [...ex.ladder].sort((a,b)=>a-b);
   return null;
 }
-function nextWeight(ex,cur){
-  if(ex.equip==='bodyweight')return null;
-  if(ex.equip==='dumbbell'){const hw=[...S.settings.handWeights].sort((a,b)=>a-b);return hw.find(w=>w>cur+1e-9)??null;}
-  const step=ex.step||S.settings.gymStep||0.5;return Math.round((cur+step)*100)/100;
+/* Seuraava/edellinen paino laitteen portaissa: lista tai aloituspaino + askel. Palauttaa null, jos askelta ei ole. */
+function stepW(ex,cur,dir){
+  const L=weightList(ex);
+  if(L){if(!L.length)return null;
+    if(cur==null)return dir>0?L[0]:null;
+    return dir>0?(L.find(w=>w>cur+1e-9)??null):([...L].reverse().find(w=>w<cur-1e-9)??null);}
+  const step=(ex&&ex.step)||S.settings.gymStep||0.5,base=(ex&&ex.base)||0;
+  if(cur==null)return dir>0?(base>0?base:step):null;
+  const k=(cur-base)/step;
+  const nk=dir>0?Math.floor(k+1e-9)+1:Math.ceil(k-1e-9)-1;
+  if(nk<0)return null;
+  return r2(base+nk*step);
 }
+const nextWeight=(ex,cur)=>stepW(ex,cur>0?cur:null,1);
+function ladderText(x){
+  const L=weightList(x);
+  if(L)return L.length?'Portaat: '+L.map(fmt).join(', ')+' kg':'Ei painoja';
+  const step=x.step||S.settings.gymStep||0.5,base=x.base||0,v=[];
+  for(let k=0;k<8;k++)v.push(fmt(r2(base+(base>0?k:k+1)*step)));
+  return 'Portaat: '+v.join(', ')+' … kg';
+}
+function weightsDesc(x){
+  if(isDb(x))return `${EQUIP[x.equip].toLowerCase()}: ${[...dbMap(nDbOf(x)).keys()].map(fmt).join(', ')} kg`;
+  if(x.equip==='bodyweight')return 'kehonpaino'+(x.step?`, lisäpainon askel ${fmt(x.step)} kg`:'');
+  if(x.ladder&&x.ladder.length)return 'portaat '+x.ladder.map(fmt).join(', ')+' kg';
+  return `aloitus ${fmt(x.base||0)} kg, askel ${fmt(x.step||S.settings.gymStep)} kg`;
+}
+
 function rangeFor(exId){
   for(const t of S.types)for(const p of t.templates){const it=p.items.find(i=>i.exId===exId);if(it)return [it.repsMin,it.repsMax];}
   return [S.settings.repsMin,S.settings.repsMax];
 }
-/* Kaksoisprogressio: toistoja lisätään samalla painolla, kunnes kaikki sarjat yltävät ylärajaan; sitten paino nousee ja toistot palaavat alarajalle. */
+/* Kaksoisprogressio sarjakohtaisilla arvioilla:
+   - paino nousee, kun kaikki sarjat yltävät ylärajaan eikä yksikään sarja ole raskas
+   - jos viimeinen sarja on ollut raskas N kertaa peräkkäin, paino ja toistot pidetään */
 function hintFor(exId,rmin,rmax,nSets){
   const ex=exById(exId);if(!ex)return null;
-  const st=S.settings,hc=st.heavyCount||0;
-  const occ=[];
-  for(const s of sortedSessions()){const e=(s.exercises||[]).find(e=>e.exId===exId);if(e){occ.push(e);if(occ.length>=Math.max(1,hc))break;}}
-  if(!occ.length)return null;
-  const last=occ[0];
-  if(hc>0&&occ.length>=hc&&occ.slice(0,hc).every(o=>o.rating==='heavy'))
-    return {type:'hold',text:`${hc} viime kertaa raskaita – pidä paino ja toistot ennallaan.`};
-  const cur=Math.max(0,...last.sets.map(s=>s.weight||0));
-  const atCur=last.sets.filter(s=>(s.weight||0)>=cur-1e-9);
-  const reps=atCur.map(s=>s.reps).join('/');
-  const wTxt=cur?` @ ${fmt(cur)} kg`:'';
-  const success=atCur.length>=nSets&&atCur.every(s=>s.reps>=rmax);
-  if(success){
-    if(last.rating==='heavy')return {type:'hold',text:`Yläraja ${rmax} saavutettu, mutta tuntui raskaalta – toista sama paino vielä kerran.`};
-    const nx=nextWeight(ex,cur);
-    if(nx!=null){const dt=ex.equip==='dumbbell'?diskText(nx):'';
-      return {type:'up',text:`Kaikki sarjat ylärajalla (${reps}${wTxt}) – nosta painoa ${fmt(nx)} kg ja aloita ${rmin} toistosta${dt?' ('+dt+')':''}.`,weight:nx,reps:rmin};}
-    return {type:'up',text:ex.equip==='bodyweight'?`Yläraja ${rmax} saavutettu – lisää sarja tai vaikeuta liikettä.`:`Yläraja saavutettu, mutta raskaampaa painoa ei ole – lisää sarja tai hidasta tempoa.`};
+  if(ex.next){const n=ex.next,parts=[];if(n.weight!=null)parts.push(fmt(n.weight)+' kg');if(n.reps!=null)parts.push(n.reps+' toistoa');
+    return {type:'coach',text:`${n.src==='coach'?'Valmennus':'Oma tavoite'}${n.at?' '+fmtDM(n.at):''}: ${parts.join(' × ')||'katso perustelu'}${n.note?' – '+n.note:''}`};}
+  const hc=S.settings.heavyCount||0;
+  const occ=occurrences(exId,Math.max(2,hc));
+  if(!occ.length){
+    const ch=chainOf(exId),i=ch.indexOf(exId);
+    for(let k=i-1;k>=0;k--){const o=occurrences(ch[k],1)[0];if(o)return {type:'info',text:`Uusi vaihe ketjussa. Edellinen vaihe ${exById(ch[k]).name} ${fmtDay(o.date)}: ${setsText(o.e.sets)}. Aloita alarajalta ${rmin}.`};}
+    return null;
   }
-  if(atCur.some(s=>s.reps<rmin))return {type:'hold',text:`Viimeksi ${reps}${wTxt} – osa sarjoista jäi alle ${rmin} toiston. Pidä paino ennallaan.`};
+  const lastSetR=o=>{const s=o.e.sets[o.e.sets.length-1];return s?sr(s,o.e):null;};
+  if(hc>0&&occ.length>=hc&&occ.slice(0,hc).every(o=>lastSetR(o)==='heavy'))
+    return {type:'hold',text:`Viimeinen sarja on ollut raskas ${hc} kertaa peräkkäin – pidä paino ja toistot ennallaan.`};
+  const evalO=o=>{const cur=Math.max(0,...o.e.sets.map(s=>s.weight||0));const at=o.e.sets.filter(s=>(s.weight||0)>=cur-1e-9);
+    return {cur,at,success:at.length>=nSets&&at.every(s=>s.reps>=rmax),heavy:at.some(s=>sr(s,o.e)==='heavy'),allEasy:o.e.sets.length>0&&o.e.sets.every(s=>sr(s,o.e)==='easy')};};
+  const L=evalO(occ[0]);const reps=L.at.map(s=>s.reps).join('/');const wTxt=L.cur?` @ ${fmt(L.cur)} kg`:'';
+  if(L.success){
+    if(L.heavy)return {type:'hold',text:`Yläraja ${rmax} saavutettu (${reps}${wTxt}), mutta jokin sarja tuntui raskaalta – toista sama paino.`};
+    if(rmin===rmax&&occ.length>=2){const P=evalO(occ[1]);
+      if(L.allEasy&&P.success&&P.allEasy){const nm=rmin<=6?rmin+3:Math.round(rmin*1.5);
+        return {type:'range',text:`Kiinteä ${nSets} × ${rmin} on mennyt helposti kahdesti. Laajenna toistoalue ${rmin}–${nm} ja lisää toistoja ennen painon nostoa.`,newMax:nm};}}
+    const bw=ex.equip==='bodyweight'&&!L.cur;
+    const nx=bw?null:nextWeight(ex,L.cur);
+    if(nx!=null){const dt=isDb(ex)?diskText(nx,ex):'';
+      return {type:'up',text:`Kaikki sarjat ylärajalla (${reps}${wTxt}) – nosta painoon ${fmt(nx)} kg ja aloita ${rmin} toistosta${dt?' ('+dt+')':''}.`,weight:nx,reps:rmin};}
+    const h=harderOf(exId);
+    if(h)return {type:'chain',text:`Yläraja ${rmax} saavutettu – siirry vaikeampaan versioon: ${h.name}.`,to:h.id};
+    return {type:'up',text:bw?`Yläraja ${rmax} saavutettu – lisää sarja tai luo vaikeampi versio liikepankissa.`:'Yläraja saavutettu, mutta raskaampaa painoa ei ole – lisää sarja tai hidasta tempoa.'};
+  }
+  if(L.at.some(s=>s.reps<rmin))return {type:'hold',text:`Viimeksi ${reps}${wTxt} – osa sarjoista jäi alle ${rmin} toiston. Pidä paino ennallaan.`};
   return {type:'info',text:`Viimeksi ${reps}${wTxt} – lisää toistoja samalla painolla kohti ${rmax}:ää.`};
 }
 function setsText(sets){
@@ -388,57 +585,120 @@ function sessionSummary(s){
   return `${(s.exercises||[]).length} liikettä · ${sets} sarjaa`;
 }
 function sessionTitle(s){return s.typeName+(s.templateName&&s.templateName!==s.typeName?' – '+s.templateName:'');}
+function sessSpan(s){const ts=[];(s.exercises||[]).forEach(e=>e.sets.forEach(st=>{if(st.t)ts.push(Date.parse(st.t));}));if(!ts.length)return null;ts.sort((a,b)=>a-b);return {a:ts[0],b:ts[ts.length-1],min:Math.round((ts[ts.length-1]-ts[0])/60000)};}
+
+/* ---------- lihasryhmät ---------- */
+function weightedCounts(ws){
+  const c={};
+  S.sessions.filter(s=>weekStart(s.date)===ws).forEach(s=>(s.exercises||[]).forEach(e=>{const n=e.sets.length;for(const [g,w] of Object.entries(musclesOf(e)))c[g]=(c[g]||0)+n*w;}));
+  Object.keys(c).forEach(k=>c[k]=Math.round(c[k]*10)/10);
+  return c;
+}
+function balanceIssues(c,final){
+  const out=[];
+  S.muscleGroups.forEach(g=>{const v=c[g.id]||0;
+    if(g.max!=null&&v>g.max)out.push({lv:'over',g:g.id,text:`${g.name} ${fmt(v)} sarjaa – yli enimmäismäärän ${fmt(g.max)}`});
+    if(final&&g.min!=null&&v<g.min)out.push({lv:'under',g:g.id,text:`${g.name} ${fmt(v)} sarjaa – alle vähimmäismäärän ${fmt(g.min)}`});});
+  (S.settings.ratioRules||[]).forEach(r=>{const a=c[r.a]||0,b=c[r.b]||0;
+    if(b>0&&a<r.k*b-1e-9)out.push({lv:'ratio',g:r.a,text:`${mgName(r.a)} ${fmt(a)} : ${mgName(r.b).toLowerCase()} ${fmt(b)} – tavoite ${mgName(r.a).toLowerCase()} vähintään ${r.k===1?'':fmt(r.k)+' × '}${mgName(r.b).toLowerCase()}`});});
+  return out;
+}
+function exercisesFor(g){
+  const names=[];S.types.forEach(t=>t.templates.forEach(p=>p.items.forEach(i=>{const x=exById(i.exId);if(x&&(x.muscles[g]||0)>=1){const n=`${x.name} (${p.name})`;if(!names.includes(n))names.push(n);}})));
+  return names.slice(0,3);
+}
 
 /* ---------- treenin aloitus ---------- */
-function buildEx(exId,it){
-  const ex=exById(exId),last=lastPerf(exId);
-  const n=(it&&it.sets)||(last?last.sets.length:3);
-  const [rmin,rmax]=it?[it.repsMin,it.repsMax]:rangeFor(exId);
-  const sets=[];
+function buildEx(exId,it,part){
+  const ex=exById(exId),lo=occurrences(exId,1)[0];
+  const n=(it&&it.sets)||(lo?lo.e.sets.length:3);
+  const [rmin,rmax]=it&&it.repsMin!=null?[it.repsMin,it.repsMax]:rangeFor(exId);
+  const nx=ex&&ex.next;const sets=[];
   for(let j=0;j<n;j++){
-    const ls=last?(last.sets[j]||last.sets[last.sets.length-1]):null;
-    sets.push({reps:String(ls?ls.reps:rmin),weight:ls?fmtIn(ls.weight):fmtIn(it?it.weight:'')});
+    const ls=lo?(lo.e.sets[j]||lo.e.sets[lo.e.sets.length-1]):null;
+    let reps=ls?ls.reps:rmin,w=ls?ls.weight:(it?it.weight:'');
+    if(nx){if(nx.reps!=null)reps=nx.reps;if(nx.weight!=null)w=nx.weight;}
+    sets.push({reps:String(reps??rmin),weight:fmtIn(w),rating:null,t:null});
   }
-  return {exId,name:ex?ex.name:'?',muscle:ex?ex.muscle:'',rating:null,sets,rmin,rmax,last,hint:hintFor(exId,rmin,rmax,n)};
+  return {exId,name:ex?ex.name:'?',muscle:ex?ex.muscle:'',sets,rmin,rmax,core:it?it.core!==false:true,part:part||0,
+    last:lo?{date:lo.date,sets:lo.e.sets,rating:lo.e.rating||null}:null,hint:hintFor(exId,rmin,rmax,n)};
 }
-function startSession(typeId,tplId){
+const tplItems=(tpl,hurry)=>tpl.items.filter(it=>exById(it.exId)&&(!hurry||it.core!==false));
+function confirmDrop(){return !draft||confirm(draft.editing?'Kirjauksen muokkaus on kesken. Hylätäänkö muutokset?':'Toinen treeni on kesken. Hylätäänkö se?');}
+function openSession(){saveDraft();closeModal();view.tab='session';render();scrollTo(0,0);}
+function startSession(typeId,tplId,hurry){
   const ty=typeById(typeId);if(!ty)return;
-  if(draft&&!confirm('Toinen treeni on kesken. Hylätäänkö se?'))return;
-  if(ty.logStyle==='tick'){addTick(ty);return;}
+  if(!confirmDrop())return;
+  if(ty.logStyle==='tick'){draft=null;saveDraft();addTick(ty);return;}
   if(ty.logStyle==='activity'){
     draft={kind:'activity',typeId:ty.id,typeName:ty.name,date:ymd(),durationMin:'',distanceKm:'',rating:null,note:''};
   }else{
     const tpl=ty.templates.find(p=>p.id===tplId)||ty.templates[0];
     if(!tpl){alert('Tällä treenityypillä ei ole vielä pohjaa. Lisää se Suunnitelma-sivulla.');return;}
-    draft={kind:'full',typeId:ty.id,typeName:ty.name,templateId:tpl.id,templateName:tpl.name,templateNote:tpl.note||'',date:ymd(),note:'',
-      exercises:tpl.items.filter(it=>exById(it.exId)).map(it=>buildEx(it.exId,it))};
+    draft={kind:'full',typeId:ty.id,typeName:ty.name,templateId:tpl.id,templateName:tpl.name,templateNote:tpl.note||'',hurry:!!hurry,date:ymd(),note:'',
+      parts:[{typeId:ty.id,typeName:ty.name,templateId:tpl.id,templateName:tpl.name}],
+      exercises:tplItems(tpl,hurry).map(it=>buildEx(it.exId,it,0))};
   }
-  saveDraft();closeModal();view.tab='session';render();scrollTo(0,0);
+  openSession();
+}
+function startCombo(id,hurry){
+  const c=(S.combos||[]).find(c=>c.id===id);if(!c)return;
+  if(!confirmDrop())return;
+  const parts=[],exs=[],seen=new Set(),notes=[];
+  c.parts.forEach(p=>{const ty=typeById(p.typeId);if(!ty)return;const tpl=ty.templates.find(t=>t.id===p.tplId)||ty.templates[0];if(!tpl)return;
+    const pi=parts.length;parts.push({typeId:ty.id,typeName:ty.name,templateId:tpl.id,templateName:tpl.name});if(tpl.note)notes.push(tpl.note);
+    tplItems(tpl,hurry).forEach(it=>{if(seen.has(it.exId))return;seen.add(it.exId);exs.push(buildEx(it.exId,it,pi));});});
+  if(!parts.length){alert('Yhdistelmän osia ei löydy. Tarkista yhdistelmä Suunnitelma-sivulla.');return;}
+  draft={kind:'full',combo:{id:c.id,name:c.name},typeId:parts[0].typeId,typeName:c.name,templateId:parts[0].templateId,templateName:'',templateNote:notes.join(' · '),hurry:!!hurry,date:ymd(),note:'',parts,exercises:exs};
+  openSession();
 }
 function addTick(ty){
   S.sessions.push({id:uid(),createdAt:Date.now(),date:ymd(),typeId:ty.id,typeName:ty.name,kind:'tick',note:''});
   save();closeModal();render();toast(ty.name+' merkitty tehdyksi');
 }
+function packEx(e){return {exId:e.exId,name:e.name,muscle:e.muscle,sets:e.sets.map(s=>({reps:num(s.reps),weight:num(s.weight),rating:s.rating||null,t:s.t||null})).filter(s=>s.reps!=null&&s.reps>0)};}
 function finishSession(){
-  const d=draft;
-  const base={id:uid(),createdAt:Date.now(),date:d.date||ymd(),typeId:d.typeId,typeName:d.typeName,kind:d.kind,note:(d.note||'').trim()};
-  if(d.kind==='activity'){
-    Object.assign(base,{durationMin:num(d.durationMin),distanceKm:num(d.distanceKm),rating:d.rating||null});
-    if(base.durationMin==null&&base.distanceKm==null&&!confirm('Kestoa tai matkaa ei ole syötetty. Tallennetaanko silti?'))return;
-  }else{
-    base.templateId=d.templateId;base.templateName=d.templateName;
-    base.exercises=d.exercises.map(e=>({exId:e.exId,name:e.name,muscle:e.muscle,rating:e.rating||null,
-      sets:e.sets.map(s=>({reps:num(s.reps),weight:num(s.weight)})).filter(s=>s.reps!=null&&s.reps>0)})).filter(e=>e.sets.length);
-    if(!base.exercises.length){alert('Yhtään sarjaa ei ole kirjattu.');return;}
+  const d=draft,date=d.date||ymd(),note=(d.note||'').trim();
+  if(d.editing){
+    const s=S.sessions.find(x=>x.id===d.editing);if(!s){alert('Muokattavaa kirjausta ei löydy.');return;}
+    if(d.kind==='full'){const ex=d.exercises.map(packEx).filter(e=>e.sets.length);if(!ex.length){alert('Yhtään sarjaa ei ole kirjattu. Poista kirjaus, jos haluat sen pois.');return;}s.exercises=ex;}
+    if(d.kind==='activity'){s.durationMin=num(d.durationMin);s.distanceKm=num(d.distanceKm);s.rating=d.rating||null;}
+    s.date=date;s.note=note;s.editedAt=Date.now();
+    save();draft=null;saveDraft();view.tab='history';view.hsub='sessions';render();scrollTo(0,0);toast('Muutokset tallennettu');return;
   }
-  S.sessions.push(base);save();draft=null;saveDraft();view.tab='today';render();scrollTo(0,0);toast('Treeni tallennettu');
+  if(d.kind==='activity'){
+    const base={id:uid(),createdAt:Date.now(),date,typeId:d.typeId,typeName:d.typeName,kind:'activity',note,durationMin:num(d.durationMin),distanceKm:num(d.distanceKm),rating:d.rating||null};
+    if(base.durationMin==null&&base.distanceKm==null&&!confirm('Kestoa tai matkaa ei ole syötetty. Tallennetaanko silti?'))return;
+    S.sessions.push(base);
+  }else{
+    const now=Date.now(),out=[];
+    draftParts(d).forEach((p,pi)=>{
+      const ex=d.exercises.filter(e=>(e.part||0)===pi).map(packEx).filter(e=>e.sets.length);
+      if(!ex.length)return;
+      const s={id:uid(),createdAt:now+pi,date,typeId:p.typeId,typeName:p.typeName,kind:'full',note:'',templateId:p.templateId,templateName:p.templateName,exercises:ex};
+      if(d.combo)s.combo=d.combo.name;if(d.hurry)s.hurry=true;
+      out.push(s);});
+    if(!out.length){alert('Yhtään sarjaa ei ole kirjattu.');return;}
+    out[0].note=note;
+    out.forEach(s=>s.exercises.forEach(e=>{const x=exById(e.exId);if(x&&x.next)x.next=null;}));
+    S.sessions.push(...out);
+  }
+  save();draft=null;saveDraft();view.tab='today';render();scrollTo(0,0);toast('Treeni tallennettu');
+}
+function editSession(id){
+  const s=S.sessions.find(x=>x.id===id);if(!s)return;
+  if(!confirmDrop())return;
+  draft={editing:s.id,kind:s.kind,typeId:s.typeId,typeName:s.typeName,templateId:s.templateId,templateName:s.templateName,date:s.date,note:s.note||''};
+  if(s.kind==='activity')Object.assign(draft,{durationMin:fmtIn(s.durationMin),distanceKm:fmtIn(s.distanceKm),rating:s.rating||null});
+  if(s.kind==='full')draft.exercises=s.exercises.map(e=>{const [rmin,rmax]=rangeFor(e.exId);return {exId:e.exId,name:e.name,muscle:e.muscle,rmin,rmax,core:true,part:0,last:null,hint:null,collapsed:true,
+    sets:e.sets.map(st=>({reps:String(st.reps??''),weight:fmtIn(st.weight),rating:st.rating||e.rating||null,t:st.t||null}))};});
+  openSession();
 }
 
 /* ---------- näkymä: tänään ---------- */
 function exportBanner(){
   if(!S.sessions.length)return '';
-  const le=S.settings.lastExport;
-  const days=le?daysBetween(le.slice(0,10),ymd()):null;
+  const le=S.settings.lastExport;const days=le?daysBetween(le.slice(0,10),ymd()):null;
   if(le&&days<=7)return '';
   return `<div class="card warn"><b>${le?`Edellisestä varmuuskopiosta on ${days} päivää`:'Varmuuskopiota ei ole vielä tehty'}</b>
     <p class="small">Tiedot ovat vain tässä puhelimessa. Tallenna varmuuskopio, jottei historia katoa välimuistin tyhjennyksessä.</p>
@@ -459,31 +719,52 @@ function weekStrip(){
   if(lg.length)h+=`<div class="legend">${lg.map(x=>`<span><i class="cdot" style="background:${x.color}"></i>${esc(x.name)}</span>`).join('')}</div>`;
   return h;
 }
+function tplButtons(ty,p,cls,label){
+  const opt=p.items.filter(i=>i.core===false).length,n=p.items.length-opt;
+  return `<button class="btn ${cls}" data-act="start" data-type="${ty.id}" data-tpl="${p.id}">${esc(label)}</button>`+(opt&&n?`<button class="btn ${cls} alt" data-act="start" data-type="${ty.id}" data-tpl="${p.id}" data-hurry="1">Kiire (${n})</button>`:'');
+}
 function startButtons(ty,cls){
   if(ty.logStyle==='tick')return `<button class="btn ${cls}" data-act="start" data-type="${ty.id}">Merkitse tehdyksi</button>`;
   if(ty.logStyle==='activity')return `<button class="btn ${cls}" data-act="start" data-type="${ty.id}">Kirjaa</button>`;
   if(!ty.templates.length)return `<span class="small muted">Ei treenipohjaa</span>`;
-  if(ty.templates.length===1)return `<button class="btn ${cls}" data-act="start" data-type="${ty.id}" data-tpl="${ty.templates[0].id}">Aloita treeni</button>`;
+  if(ty.templates.length===1)return tplButtons(ty,ty.templates[0],cls,cls==='small'?'Aloita':'Aloita treeni');
   return ty.templates.map(p=>`<button class="btn ${cls}" data-act="start" data-type="${ty.id}" data-tpl="${p.id}">${esc(p.name)}</button>`).join('');
+}
+function comboButtons(c,cls){
+  const items=[];c.parts.forEach(p=>{const ty=typeById(p.typeId);const tpl=ty&&(ty.templates.find(t=>t.id===p.tplId)||ty.templates[0]);if(tpl)items.push(...tpl.items);});
+  const opt=items.filter(i=>i.core===false).length,n=items.length-opt;
+  return `<button class="btn ${cls}" data-act="startcombo" data-id="${c.id}">Aloita</button>`+(opt&&n?`<button class="btn ${cls} alt" data-act="startcombo" data-id="${c.id}" data-hurry="1">Kiire (${n})</button>`:'');
 }
 function heroCard(ty,label){
   let meta='';
-  if(ty.logStyle==='full'&&ty.templates.length===1){const p=ty.templates[0];meta=`${p.items.length} liikettä, ${p.items.reduce((a,i)=>a+(+i.sets||0),0)} sarjaa`;}
+  if(ty.logStyle==='full'&&ty.templates.length===1){const p=ty.templates[0];const opt=p.items.filter(i=>i.core===false).length;
+    meta=`${p.items.length} liikettä, ${p.items.reduce((a,i)=>a+(+i.sets||0),0)} sarjaa${opt?`, joista ${opt} valinnaista liikettä`:''}`;}
   else if(ty.logStyle==='full')meta='Valitse versio';
   else if(ty.logStyle==='tick')meta='Kuittaa, kun treeni on tehty';
   else meta='Kirjaa kesto ja matka';
   return `<div class="hero" style="--c:${ty.color}"><span class="tag">${esc(label)}</span><h2>${esc(ty.name)}</h2><p>${meta}</p><div class="row">${startButtons(ty,'')}</div></div>`;
+}
+function balanceCard(ws,dow){
+  const c=weightedCounts(ws);const final=[5,6,0].includes(dow);
+  const iss=balanceIssues(c,final);if(!iss.length)return '';
+  return `<div class="card warn"><b>Lihastasapaino tällä viikolla</b><ul class="issues">${iss.map(i=>{
+      const sug=(i.lv==='ratio'||i.lv==='under')?exercisesFor(i.g):[];
+      return `<li>${esc(i.text)}${sug.length?`<span class="sugg">${esc(mgName(i.g))}: ${esc(sug.join(', '))}</span>`:''}</li>`;}).join('')}</ul>
+    <div class="row"><button class="btn small ghost" data-act="gomuscles">Näytä lihasryhmät</button></div></div>`;
 }
 function vToday(){
   const t=ymd(),dow=parseYmd(t).getDay(),ws=weekStart(t);
   const wk=S.sessions.filter(s=>weekStart(s.date)===ws);
   const cnt=id=>wk.filter(s=>s.typeId===id).length;
   const today=sortedSessions().filter(s=>s.date===t);
-  const todayTypes=new Set(today.map(s=>s.typeId));if(draft&&draft.date===t)todayTypes.add(draft.typeId);
+  const inDraft=id=>!!(draft&&!draft.editing&&((draft.parts||[]).some(p=>p.typeId===id)||draft.typeId===id));
+  const todayTypes=new Set(today.map(s=>s.typeId));if(draft&&!draft.editing&&draft.date===t)draftParts(draft).forEach(p=>todayTypes.add(p.typeId));
   const pairOk=x=>{if(!x.pair)return true;const [m,id]=x.pair.split(':');return m==='with'?todayTypes.has(id):!todayTypes.has(id);};
-  const fixedOpen=S.types.filter(x=>x.schedule==='fixed'&&x.weekday===dow&&!today.some(s=>s.typeId===x.id));
-  const owed=S.types.filter(x=>x.schedule==='flexible'&&cnt(x.id)<(x.quota||0)&&pairOk(x)&&!(draft&&draft.typeId===x.id)&&!today.some(s=>s.typeId===x.id));
-  const cands=[...fixedOpen.filter(x=>!(draft&&draft.typeId===x.id)).map(x=>({ty:x,label:'Tämän päivän treeni'})),...owed.map(x=>({ty:x,label:`Tällä viikolla ${cnt(x.id)}/${x.quota} tehty`}))];
+  const fixedOpen=S.types.filter(x=>x.schedule==='fixed'&&x.weekday===dow&&!today.some(s=>s.typeId===x.id)&&!inDraft(x.id));
+  const owed=S.types.filter(x=>x.schedule==='flexible'&&cnt(x.id)<(x.quota||0)&&pairOk(x)&&!inDraft(x.id)&&!today.some(s=>s.typeId===x.id));
+  const cands=[...fixedOpen.map(x=>({ty:x,label:'Tämän päivän treeni'})),...owed.map(x=>({ty:x,label:`Tällä viikolla ${cnt(x.id)}/${x.quota} tehty`}))];
+  const combos=(S.combos||[]).filter(c=>c.parts.length>1&&c.parts.every(p=>{const ty=typeById(p.typeId);if(!ty||today.some(s=>s.typeId===ty.id)||inDraft(ty.id))return false;
+    return ty.schedule==='flexible'?cnt(ty.id)<(ty.quota||0):ty.schedule==='fixed'?ty.weekday===dow:true;}));
   let planned=0,done=0;
   S.types.forEach(x=>{const q=x.schedule==='fixed'?1:x.schedule==='flexible'?(x.quota||0):0;planned+=q;done+=Math.min(cnt(x.id),q);});
   let h=`<h1>${cap(WD_LONG[dow])}</h1><p class="sub">${fmtDM(t)}${parseYmd(t).getFullYear()}, viikko ${isoWeek(t)}</p>`;
@@ -491,18 +772,21 @@ function vToday(){
   h+=exportBanner();
   let rest=cands;
   if(draft){
-    const n=(draft.exercises||[]).length,c=(draft.exercises||[]).filter(e=>e.collapsed).length;
-    h+=`<div class="hero" style="--c:${typeColor(draft.typeId)}"><span class="tag">Kesken</span><h2>${esc(draftTitle())}</h2><p>${draft.kind==='full'?`${c}/${n} liikettä valmiina`:'Kirjaus kesken'}</p><div class="row"><button class="btn" data-act="resume">Jatka treeniä</button></div></div>`;
+    const ex=draft.exercises||[],n=ex.length,c=ex.filter(e=>e.collapsed).length;
+    h+=`<div class="hero" style="--c:${typeColor(draft.typeId)}"><span class="tag">${draft.editing?'Muokkaus kesken':'Kesken'}</span><h2>${esc(draftTitle())}</h2><p>${draft.kind==='full'?`${c}/${n} liikettä valmiina`:'Kirjaus kesken'}</p><div class="row"><button class="btn" data-act="resume">${draft.editing?'Jatka muokkausta':'Jatka treeniä'}</button></div></div>`;
   }else if(cands.length){
     h+=heroCard(cands[0].ty,cands[0].label);rest=cands.slice(1);
   }else{
     h+=`<div class="rest"><h3>Viikon suunnitelma on tehty</h3><p class="small muted">Tänään voi levätä. Kävelyn tai uinnin voi kirjata alta.</p></div>`;
   }
   h+=`<p class="small muted" style="margin:10px 2px 0">Tällä viikolla ${done}/${planned} suunniteltua treeniä tehty.</p>`;
-  if(rest.length)h+=`<h2>Muut vaihtoehdot tänään</h2><div class="group">`+rest.map(c=>`<div class="lrow"><span class="cdot" style="background:${c.ty.color}"></span><div class="grow"><b>${esc(c.ty.name)}</b><div class="small muted">${esc(c.label)}</div></div><div class="row" style="margin:0;flex-wrap:nowrap">${startButtons(c.ty,'small')}</div></div>`).join('')+`</div>`;
-  if(today.length)h+=`<h2>Tehty tänään</h2><div class="group">`+today.map(s=>{
-      const ty=typeById(s.typeId);const undo=s.kind==='tick';
-      return `<div class="lrow" data-act="showsess" data-id="${s.id}"><span class="cdot" style="background:${typeColor(s.typeId)}"></span><div class="grow"><b>${esc(sessionTitle(s))}</b><div class="small muted">${esc(sessionSummary(s))}</div></div>${undo?`<button class="btn small ghost" data-act="untick" data-type="${s.typeId}">Peru</button>`:'<span class="chev">›</span>'}</div>`;}).join('')+`</div>`;
+  h+=balanceCard(ws,dow);
+  if(rest.length||combos.length){
+    h+=`<h2>Muut vaihtoehdot tänään</h2><div class="group">`+rest.map(c=>`<div class="lrow"><span class="cdot" style="background:${c.ty.color}"></span><div class="grow"><b>${esc(c.ty.name)}</b><div class="small muted">${esc(c.label)}</div></div><div class="row" style="margin:0;flex-wrap:nowrap">${startButtons(c.ty,'small')}</div></div>`).join('')
+      +combos.map(c=>`<div class="lrow"><span class="pdots">${c.parts.map(p=>`<i class="cdot" style="background:${typeColor(p.typeId)};width:9px;height:9px"></i>`).join('')}</span><div class="grow"><b>${esc(c.name)}</b><div class="small muted">Yhdistelmä, kirjataan molempiin</div></div><div class="row" style="margin:0;flex-wrap:nowrap">${comboButtons(c,'small')}</div></div>`).join('')+`</div>`;
+  }
+  if(today.length)h+=`<h2>Tehty tänään</h2><div class="group">`+today.map(s=>{const undo=s.kind==='tick';
+      return `<div class="lrow" data-act="showsess" data-id="${s.id}"><span class="cdot" style="background:${typeColor(s.typeId)}"></span><div class="grow"><b>${esc(sessionTitle(s))}</b><div class="small muted">${esc(sessionSummary(s))}${s.combo?' · '+esc(s.combo):''}</div></div>${undo?`<button class="btn small ghost" data-act="untick" data-type="${s.typeId}">Peru</button>`:'<span class="chev">›</span>'}</div>`;}).join('')+`</div>`;
   const adhoc=S.types.filter(x=>x.schedule==='adhoc');
   h+=`<h2>Muu liikunta</h2><div class="chips">${adhoc.map(x=>`<button class="btn" data-act="start" data-type="${x.id}"><span class="cdot" style="background:${x.color};margin-right:8px"></span>${esc(x.name)}</button>`).join('')}<button class="btn ghost" data-act="other">Kaikki treenit…</button></div>`;
   return h;
@@ -511,70 +795,92 @@ function otherPicker(){
   let h=`<div class="between"><h1>Valitse treeni</h1><button class="btn small ghost" data-act="closemodal">Sulje</button></div>`;
   S.types.forEach(ty=>{
     h+=`<div class="card"><h3><span class="cdot" style="background:${ty.color};margin-right:8px"></span>${esc(ty.name)}</h3><div class="row">`;
-    if(ty.logStyle==='full')h+=ty.templates.map(p=>`<button class="btn" data-act="start" data-type="${ty.id}" data-tpl="${p.id}">${esc(p.name)}</button>`).join('');
+    if(ty.logStyle==='full')h+=ty.templates.map(p=>tplButtons(ty,p,'',p.name)).join('');
     else h+=`<button class="btn" data-act="start" data-type="${ty.id}">${ty.logStyle==='tick'?'Merkitse tehdyksi':'Kirjaa'}</button>`;
     h+=`</div></div>`;
   });
+  (S.combos||[]).forEach(c=>{h+=`<div class="card"><h3>${esc(c.name)}</h3><p class="small muted">Yhdistelmä: ${esc(c.parts.map(p=>(typeById(p.typeId)||{}).name||'?').join(' + '))}</p><div class="row">${comboButtons(c,'')}</div></div>`;});
   openModal(h);
 }
 
 /* ---------- näkymä: treeni käynnissä ---------- */
-function draftTitle(){return draft?draft.typeName+(draft.templateName&&draft.templateName!==draft.typeName?' – '+draft.templateName:''):'';}
+function draftTitle(){
+  if(!draft)return '';
+  const base=draft.combo?draft.combo.name:draft.typeName+(draft.templateName&&draft.templateName!==draft.typeName?' – '+draft.templateName:'');
+  return (draft.editing?'Muokkaa: ':'')+base+(draft.hurry?' (kiire)':'');
+}
 function rateSeg(r,i){
   return `<div class="seg">${['easy','medium','heavy'].map(k=>`<button data-act="rate" data-ex="${i}" data-r="${k}" class="${r===k?'on':''}" aria-pressed="${r===k}">${RATE[k]}</button>`).join('')}</div>`;
 }
 function exOptions(selected,withEmpty){
   let h=withEmpty?`<option value="">${withEmpty}</option>`:'';
+  const ok=x=>!x.archived||x.id===selected;
   const known=new Set(S.muscleGroups.map(g=>g.id));
-  S.muscleGroups.forEach(g=>{const xs=S.exercises.filter(x=>x.muscle===g.id).sort(byName);
+  S.muscleGroups.forEach(g=>{const xs=S.exercises.filter(x=>ok(x)&&x.muscle===g.id).sort(byName);
     if(xs.length)h+=`<optgroup label="${esc(g.name)}">${xs.map(x=>`<option value="${x.id}"${x.id===selected?' selected':''}>${esc(x.name)}</option>`).join('')}</optgroup>`;});
-  const orph=S.exercises.filter(x=>!known.has(x.muscle));
+  const orph=S.exercises.filter(x=>ok(x)&&!known.has(x.muscle));
   if(orph.length)h+=`<optgroup label="Muu">${orph.map(x=>`<option value="${x.id}"${x.id===selected?' selected':''}>${esc(x.name)}</option>`).join('')}</optgroup>`;
   return h;
 }
-const draftSets=e=>e.sets.map(s=>({reps:num(s.reps),weight:num(s.weight)})).filter(s=>s.reps);
+const draftSets=e=>e.sets.map(s=>({reps:num(s.reps),weight:num(s.weight),rating:s.rating})).filter(s=>s.reps);
 function stepper(i,j,f,v,label){
   return `<div class="stp"><button data-act="step" data-ex="${i}" data-set="${j}" data-f="${f}" data-d="-1" aria-label="Vähennä ${label}">−</button><input data-bind="set" data-ex="${i}" data-set="${j}" data-f="${f}" inputmode="${f==='reps'?'numeric':'decimal'}" value="${esc(v)}" placeholder="–" aria-label="${label}, sarja ${j+1}"><button data-act="step" data-ex="${i}" data-set="${j}" data-f="${f}" data-d="1" aria-label="Lisää ${label}">+</button></div>`;
 }
-function exCard(e,i){
+function hintHtml(e,i){
+  const h=e.hint;if(!h)return '';
+  let b='';
+  if(h.type==='up'&&h.weight!=null)b=`<button class="btn small" data-act="applyhint" data-ex="${i}">Käytä ${fmt(h.weight)} kg × ${h.reps}</button>`;
+  if(h.type==='range')b=`<button class="btn small" data-act="applyrange" data-ex="${i}">Laajenna ${e.rmin}–${h.newMax}</button>`;
+  if(h.type==='chain')b=`<button class="btn small" data-act="chainup" data-ex="${i}" data-id="${h.to}">Vaihda liike</button>`;
+  return `<div class="hint ${h.type}"><span>${esc(h.text)}</span>${b}</div>`;
+}
+function exCard(e,i,times){
   if(e.collapsed){
-    return `<div class="exc done" data-card="${i}" data-act="expand" data-ex="${i}" role="button" tabindex="0"><span class="check${e.rating?'':' n'}">✓</span><div class="grow"><b>${esc(e.name)}</b><div class="small muted">${esc(setsText(draftSets(e)))}</div></div>${e.rating?`<span class="rpill r-${e.rating}">${RATE[e.rating]}</span>`:''}</div>`;
+    const rated=e.sets.some(s=>s.rating);
+    return `<div class="exc done" data-card="${i}" data-act="expand" data-ex="${i}" role="button" tabindex="0"><span class="check${rated?'':' n'}">✓</span><div class="grow"><b>${esc(e.name)}</b><div class="small muted">${esc(setsText(draftSets(e)))}</div></div><span class="pdots">${e.sets.map(s=>`<i class="dot d-${s.rating||'none'}"></i>`).join('')}</span></div>`;
   }
   const ex=exById(e.exId);
   const bw=ex&&ex.equip==='bodyweight'&&!e.sets.some(s=>s.weight!=='')&&!(e.last&&e.last.sets.some(s=>s.weight));
-  const goal=e.rmin!=null?`<b>Tavoite ${e.sets.length} × ${e.rmin===e.rmax?e.rmin:e.rmin+'–'+e.rmax}</b>`:'';
-  const last=e.last?`Edellinen ${fmtDay(e.last.date)}: ${esc(setsText(e.last.sets))}${e.last.rating?` <span class="dot d-${e.last.rating}"></span>`:''}`:'Ensimmäinen kerta';
-  const hint=e.hint?`<div class="hint ${e.hint.type}"><span>${esc(e.hint.text)}</span>${e.hint.weight!=null?`<button class="btn small" data-act="applyhint" data-ex="${i}">Käytä ${fmt(e.hint.weight)} kg × ${e.hint.reps}</button>`:''}</div>`:'';
+  const goal=e.rmin!=null?`<b>Tavoite ${e.sets.length} × ${e.rmin===e.rmax?e.rmin:e.rmin+'–'+e.rmax}</b>${e.core===false?' · valinnainen':''}`:'';
+  let last=e.last?`Edellinen ${fmtDay(e.last.date)}: ${esc(setsText(e.last.sets))} <span class="pdots" style="display:inline-flex">${e.last.sets.map(s=>`<i class="dot d-${sr(s,e.last)||'none'}"></i>`).join('')}</span>`:(draft.editing?'':'Ensimmäinen kerta');
   const unit=/\(s\)/.test(e.name)?'sekuntia':/\(m\)/.test(e.name)?'metriä':'toistot';
-  const rows=e.sets.map((s,j)=>`<div class="srow${bw?' bw':''}"><span class="sn">${j+1}</span>${stepper(i,j,'reps',s.reps,unit)}${bw?'<span></span>':stepper(i,j,'weight',s.weight,'kg')}</div>`).join('');
-  return `<div class="exc" data-card="${i}"><div class="exhead"><h3>${esc(e.name)}</h3><span class="chip">${esc(mgName(e.muscle))}</span></div>
-    <div class="goal">${goal}${goal?'<br>':''}${last}</div>${hint}
-    <div class="shead${bw?' bw':''}"><span></span><span>${unit}</span><span>${bw?'':'kg'}</span></div>${rows}
-    <div class="exact"><button class="linkbtn" data-act="addset" data-ex="${i}">+ Sarja</button>${e.sets.length>1?`<button class="linkbtn" data-act="delset" data-ex="${i}" data-set="${e.sets.length-1}">− Sarja</button>`:''}<button class="linkbtn danger" data-act="delex" data-ex="${i}">Poista liike</button></div>
-    <p class="ask">Miltä tuntui? Arvio kuittaa liikkeen tehdyksi.</p>${rateSeg(e.rating,i)}
-    <div class="exact" style="justify-content:center"><button class="linkbtn" data-act="exdone" data-ex="${i}">Valmis ilman arviota</button></div></div>`;
+  const rows=e.sets.map((s,j)=>{
+    let tline='';
+    if(s.t){const ts=Date.parse(s.t),prev=times.filter(x=>x<ts).pop();tline=`<div class="stime">✓ klo ${hm(ts)}${prev?` · tauko ${durTxt(Math.round((ts-prev)/1000))}`:''}</div>`;}
+    return `<div class="sblock"><div class="srow"><span class="sn">${j+1}</span>${stepper(i,j,'reps',s.reps,unit)}${bw?'<span></span>':stepper(i,j,'weight',s.weight,'kg')}</div>
+      <div class="srate"><span></span><div class="seg sm">${['easy','medium','heavy'].map(k=>`<button data-act="srate" data-ex="${i}" data-set="${j}" data-r="${k}" class="${s.rating===k?'on':''}" aria-pressed="${s.rating===k}" aria-label="Sarja ${j+1}: ${RATE[k]}">${RATE_S[k]}</button>`).join('')}</div></div>${tline}</div>`;}).join('');
+  return `<div class="exc" data-card="${i}"><div class="exhead"><h3>${esc(e.name)}</h3><div class="exhd-r"><span class="chip">${esc(mgName(ex?ex.muscle:e.muscle))}</span><button class="info" data-act="exinfo" data-id="${e.exId}" aria-label="Liikkeen ohje">i</button></div></div>
+    <div class="goal">${goal}${goal&&last?'<br>':''}${last}</div>${hintHtml(e,i)}
+    <div class="shead"><span></span><span>${unit}</span><span>${bw?'':'kg'}</span></div>${rows}
+    <div class="exact"><button class="linkbtn" data-act="addset" data-ex="${i}">+ Sarja</button>${e.sets.length>1?`<button class="linkbtn" data-act="delset" data-ex="${i}" data-set="${e.sets.length-1}">− Sarja</button>`:''}${draft.editing?'':`<button class="linkbtn" data-act="swap" data-ex="${i}">Vaihda liike</button>`}<button class="linkbtn danger" data-act="delex" data-ex="${i}">Poista</button></div>
+    <p class="ask">Arvioi jokainen sarja heti sen jälkeen. Arvio tallentaa kellonajan, ja liike kuittautuu, kun viimeinen sarja on arvioitu.</p>
+    <div class="exact" style="justify-content:center"><button class="linkbtn" data-act="exdone" data-ex="${i}">Valmis ilman arvioita</button></div></div>`;
 }
 function vSession(){
   if(!draft){view.tab='today';return vToday();}
   const d=draft,full=d.kind==='full';
-  const n=full?d.exercises.length:1,c=full?d.exercises.filter(e=>e.collapsed).length:0;
-  let h=`<div class="sesshead" style="--c:${typeColor(d.typeId)}"><div class="shrow"><button class="iconbtn" data-act="tab" data-tab="today" aria-label="Takaisin Tänään-sivulle (treeni jää kesken)">‹</button>
-    <div class="st grow"><b>${esc(draftTitle())}</b><span>${full?`${c}/${n} liikettä valmiina`:'Kirjaa liikunta'}</span></div>
+  const ex=d.exercises||[],n=ex.length,c=ex.filter(e=>e.collapsed).length;
+  const ts=ex.reduce((a,e)=>a+e.sets.length,0),rs=ex.reduce((a,e)=>a+e.sets.filter(s=>s.rating).length,0);
+  let h=`<div class="sesshead" style="--c:${typeColor(d.typeId)}"><div class="shrow"><button class="iconbtn" data-act="tab" data-tab="today" aria-label="Takaisin Tänään-sivulle (kirjaus jää kesken)">‹</button>
+    <div class="st grow"><b>${esc(draftTitle())}</b><span>${full?`${c}/${n} liikettä · ${rs}/${ts} sarjaa`:d.kind==='tick'?'Kuittaus':'Kirjaa liikunta'}</span></div>
     <input type="date" class="datepill" data-bind="d" data-f="date" value="${esc(d.date)}" aria-label="Päivä"></div>
-    ${full?`<div class="prog"><i style="width:${n?c/n*100:0}%"></i></div>`:''}</div>`;
-  if(!full){
+    ${full?`<div class="prog"><i style="width:${ts?rs/ts*100:0}%"></i></div>`:''}</div>`;
+  if(d.kind==='tick'){
+    h+=`<div class="exc"><p>${esc(d.typeName)} on merkitty tehdyksi. Voit muuttaa päivää ja muistiinpanoa.</p></div>`;
+  }else if(!full){
     h+=`<div class="exc"><div class="big"><label>Kesto (min)<input data-bind="d" data-f="durationMin" inputmode="decimal" value="${esc(d.durationMin)}" placeholder="–"></label>
       <label>Matka (km)<input data-bind="d" data-f="distanceKm" inputmode="decimal" value="${esc(d.distanceKm)}" placeholder="–"></label></div>
       <p class="ask">Miltä tuntui?</p>${rateSeg(d.rating,-1)}</div>`;
   }else{
+    const times=[];ex.forEach(e=>e.sets.forEach(s=>{if(s.t)times.push(Date.parse(s.t));}));times.sort((a,b)=>a-b);
     if(d.templateNote)h+=`<div class="note" style="--c:${typeColor(d.typeId)}">${esc(d.templateNote)}</div>`;
-    h+=d.exercises.map(exCard).join('')||`<div class="exc empty">Ei liikkeitä. Lisää liike alta.</div>`;
-    h+=`<div class="exc"><select data-change="addex" aria-label="Lisää liike">${exOptions('', '+ Lisää liike tähän treeniin')}</select>
+    h+=ex.map((e,i)=>exCard(e,i,times)).join('')||`<div class="exc empty">Ei liikkeitä. Lisää liike alta.</div>`;
+    h+=`<div class="exc"><select data-change="addex" aria-label="Lisää liike">${exOptions('', '+ Lisää liike tähän kertaan')}</select>
       <p class="small muted">Lisäys koskee vain tätä kertaa. Pysyvät muutokset tehdään Suunnitelma-sivulla.</p></div>`;
   }
   h+=`<div class="exc"><label style="margin:0">Muistiinpano<textarea data-bind="d" data-f="note" rows="2" placeholder="Esim. nukuin huonosti, polvi aristi">${esc(d.note)}</textarea></label>
-    <div class="exact" style="justify-content:center"><button class="linkbtn danger" style="margin:0" data-act="discard">Hylkää treeni</button></div></div>
-    <div class="sessbar"><button class="btn primary" data-act="finish">Tallenna treeni</button></div>`;
+    <div class="exact" style="justify-content:center"><button class="linkbtn danger" style="margin:0" data-act="discard">${d.editing?'Peru muokkaus':'Hylkää treeni'}</button></div></div>
+    <div class="sessbar"><button class="btn primary" data-act="finish">${d.editing?'Tallenna muutokset':'Tallenna treeni'}</button></div>`;
   return h;
 }
 /* Painon muutos kopioituu myöhempiin sarjoihin, joissa oli sama tai tyhjä paino. */
@@ -590,6 +896,35 @@ function focusNext(i){
   const smooth=!matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(j<0){toast('Kaikki liikkeet tehty – tallenna treeni');window.scrollTo({top:document.body.scrollHeight,behavior:smooth?'smooth':'auto'});return;}
   const c=document.querySelector(`[data-card="${j}"]`);if(c)c.scrollIntoView({block:'start',behavior:smooth?'smooth':'auto'});
+}
+function exInfo(id){
+  const x=exById(id);if(!x)return;
+  const ch=chainOf(id);
+  openModal(`<div class="between"><h1>${esc(x.name)}</h1><button class="btn small ghost" data-act="closemodal">Sulje</button></div>
+    <div class="card"><p>${x.desc?esc(x.desc).replace(/\n/g,'<br>'):'<span class="muted">Ei kuvausta. Lisää se Suunnitelma-sivun liikepankissa.</span>'}</p></div>
+    <div class="card small"><b>Lihasryhmät</b><p>${esc(muscTxt(x.muscles))}</p><b>Välineet</b><p>${esc(EQUIP[x.equip]||'')}</p>${ch.length>1?`<b>Vaikeutusketju</b><p>${ch.map(c=>c===id?`<b>${esc(exById(c).name)}</b>`:esc((exById(c)||{}).name||'?')).join(' → ')}</p>`:''}</div>`);
+}
+function swapPicker(i){
+  const e=draft.exercises[i],x=exById(e.exId);
+  const ch=chainOf(e.exId).filter(id=>id!==e.exId&&exById(id));
+  const prim=x?x.muscle:e.muscle;
+  const same=S.exercises.filter(y=>!y.archived&&y.id!==e.exId&&!ch.includes(y.id)&&y.muscle===prim).sort(byName);
+  const row=y=>`<div class="lrow"><div class="grow"><b>${esc(y.name)}</b><div class="small muted">${esc(EQUIP[y.equip]||'')}</div></div><button class="btn small" data-act="swapto" data-ex="${i}" data-id="${y.id}">Vaihda</button></div>`;
+  let h=`<div class="between"><h1>Vaihda liike</h1><button class="btn small ghost" data-act="closemodal">Sulje</button></div><p class="muted">${esc(e.name)}</p>
+    <label class="inline" style="margin:12px 0"><input type="checkbox" id="swapperm" checked style="width:22px;min-height:22px">Päivitä myös treenipohjaan (tulevat treenit)</label>`;
+  if(ch.length)h+=`<h2>Vaikeutusketju</h2><div class="group">${ch.map(id=>row(exById(id))).join('')}</div>`;
+  if(same.length)h+=`<h2>Sama lihasryhmä</h2><div class="group">${same.map(row).join('')}</div>`;
+  if(!ch.length&&!same.length)h+=`<p class="muted">Ei vaihtoehtoja. Luo uusi liike tai vaikeampi versio Suunnitelma-sivulla.</p>`;
+  openModal(h);
+}
+function swapEx(i,newId,perm){
+  const e=draft.exercises[i],old=e.exId;
+  draft.exercises[i]=buildEx(newId,{sets:e.sets.length,repsMin:e.rmin,repsMax:e.rmax,weight:'',core:e.core},e.part);
+  if(perm){let n=0;draftParts(draft).forEach(p=>{const ty=typeById(p.typeId),tpl=ty&&ty.templates.find(t=>t.id===p.templateId);if(tpl)tpl.items.forEach(it=>{if(it.exId===old){it.exId=newId;n++;}});});save();
+    toast(n?'Liike vaihdettu myös pohjaan':'Liike vaihdettu');}
+  else toast('Liike vaihdettu tälle kerralle');
+  saveDraft();closeModal();render();
+  const c=document.querySelector(`[data-card="${i}"]`);if(c)c.scrollIntoView({block:'start'});
 }
 
 /* ---------- näkymä: historia ---------- */
@@ -612,16 +947,16 @@ function hSummary(){
         chips.push(`<span class="chip ${c.length>=q?'ok':(k>0?'miss':'')}">${esc(ty.name)} ${c.length}/${q}</span>`);
       }else if(c.length){
         const km=c.reduce((a,s)=>a+(s.distanceKm||0),0),mn=c.reduce((a,s)=>a+(s.durationMin||0),0);
-        const ex=[km?fmt(Math.round(km*10)/10)+' km':'',mn?fmt(mn)+' min':''].filter(Boolean).join(', ');
+        const ex=[km?fmt(r2(km))+' km':'',mn?fmt(mn)+' min':''].filter(Boolean).join(', ');
         chips.push(`<span class="chip info">${esc(ty.name)} ${c.length}×${ex?' · '+ex:''}</span>`);
       }
     });
-    const known=new Set(S.types.map(t=>t.id));
-    const other=wk.filter(s=>!known.has(s.typeId));
-    if(other.length)chips.push(`<span class="chip">Muut ${other.length}×</span>`);
     const sets=wk.reduce((a,s)=>a+(s.exercises||[]).reduce((b,e)=>b+e.sets.length,0),0);
+    const iss=wk.length?balanceIssues(weightedCounts(w),k>0):[];
     h+=`<div class="card"><div class="between"><h3>Viikko ${isoWeek(w)}${k===0?' (tämä)':''}</h3><span class="muted small">${fmtDM(w)}–${fmtDM(addDays(w,6))}</span></div>
-      <p class="small muted">Suunnitellut ${done}/${planned} · ${sets} sarjaa</p><div>${chips.join('')}</div></div>`;
+      <p class="small muted">Suunnitellut ${done}/${planned} · ${sets} sarjaa</p><div>${chips.join('')}</div>
+      ${iss.length?`<ul class="issues small">${iss.map(i=>`<li>${esc(i.text)}</li>`).join('')}</ul>`:''}
+      ${wk.length?`<div class="row"><button class="btn small" data-act="report" data-ws="${w}">Viikkoraportti</button></div>`:''}</div>`;
   }
   return h;
 }
@@ -629,75 +964,207 @@ function hSessions(){
   const list=sortedSessions();let h='',cur='';
   list.slice(0,200).forEach(s=>{
     if(s.date!==cur){if(cur)h+='</div>';cur=s.date;h+=`<h2>${cap(WD_LONG[parseYmd(s.date).getDay()])} ${fmtDM(s.date)}</h2><div class="card">`;}
-    h+=`<div class="listrow" data-act="showsess" data-id="${s.id}"><span class="cdot" style="background:${typeColor(s.typeId)}"></span><div class="grow"><b>${esc(sessionTitle(s))}</b><div class="small muted">${esc(sessionSummary(s))}${s.note?' · 📝':''}</div></div><span class="chev">›</span></div>`;
+    h+=`<div class="listrow" data-act="showsess" data-id="${s.id}"><span class="cdot" style="background:${typeColor(s.typeId)}"></span><div class="grow"><b>${esc(sessionTitle(s))}</b><div class="small muted">${esc(sessionSummary(s))}${s.note?' · 📝':''}${s.editedAt?' · muokattu':''}</div></div><span class="chev">›</span></div>`;
   });
   return h+(cur?'</div>':'');
 }
 function showSession(id){
   const s=S.sessions.find(x=>x.id===id);if(!s)return;
-  let h=`<div class="between"><h1>${esc(sessionTitle(s))}</h1><button class="btn small ghost" data-act="closemodal">Sulje</button></div><p class="muted">${cap(WD_LONG[parseYmd(s.date).getDay()])} ${fmtDM(s.date)}${parseYmd(s.date).getFullYear()}</p>`;
+  const sp=sessSpan(s);
+  let h=`<div class="between"><h1>${esc(sessionTitle(s))}</h1><button class="btn small ghost" data-act="closemodal">Sulje</button></div><p class="muted">${cap(WD_LONG[parseYmd(s.date).getDay()])} ${fmtDM(s.date)}${parseYmd(s.date).getFullYear()}${sp?` · klo ${hm(sp.a)}–${hm(sp.b)} (${sp.min} min)`:''}${s.combo?' · '+esc(s.combo):''}${s.hurry?' · kiire':''}</p>`;
   if(s.kind==='full'){
-    h+=`<div class="card">`+s.exercises.map(e=>`<div class="listrow" style="cursor:default"><div><b>${esc(e.name)}</b><div class="small muted">${esc(mgName(e.muscle))}</div></div><div style="text-align:right">${esc(setsText(e.sets))}<div class="small muted">${e.rating?`<span class="dot d-${e.rating}"></span>${RATE[e.rating]}`:''}</div></div></div>`).join('')+`</div>`;
+    h+=`<div class="card">`+s.exercises.map(e=>`<div class="listrow" style="cursor:default"><div class="grow"><b>${esc(e.name)}</b><div class="small muted">${esc(setsText(e.sets))}</div></div><span class="pdots">${e.sets.map(st=>`<i class="dot d-${sr(st,e)||'none'}"></i>`).join('')}</span></div>`).join('')+`</div>`;
+    const all=[];s.exercises.forEach(e=>e.sets.forEach((st,j)=>{if(st.t)all.push({t:Date.parse(st.t),e,st,j});}));all.sort((a,b)=>a.t-b.t);
+    if(all.length){
+      h+=`<h2>Järjestys ja tauot</h2><div class="card">`+all.map((o,k)=>{const rest=k?Math.round((o.t-all[k-1].t)/1000):null;const sw=k>0&&all[k-1].e!==o.e;
+        return `<div class="tl${sw?' chg':''}"><span class="muted">${hm(o.t)}</span><span>${esc(o.e.name)} · ${o.j+1}: ${o.st.reps}${o.st.weight!=null?'×'+fmt(o.st.weight):''}</span><i class="dot d-${sr(o.st,o.e)||'none'}"></i>${rest!=null?`<span class="tlr">tauko ${durTxt(rest)}${sw?' · liikkeen vaihto':''}</span>`:''}</div>`;}).join('')+`</div>`;
+    }
   }else{
     h+=`<div class="card">${esc(sessionSummary(s))}</div>`;
   }
   if(s.note)h+=`<div class="card"><b>Muistiinpano</b><p>${esc(s.note)}</p></div>`;
-  h+=`<button class="btn danger block" data-act="delsess" data-id="${s.id}">Poista tämä kirjaus</button>`;
+  h+=`<div class="row"><button class="btn primary" data-act="editsess" data-id="${s.id}">Muokkaa</button><button class="btn danger" data-act="delsess" data-id="${s.id}">Poista</button></div>`;
   openModal(h);
 }
-function chart(pts,unit){
-  const W=340,H=190,L=38,R=12,T=12,B=26;
+function chart(pts,unit,labels){
+  const W=340,H=200,L=38,R=12,T=18,B=26;
   const vals=pts.map(p=>p.v);let mn=Math.min(...vals),mx=Math.max(...vals);
   if(mn===mx){mn=mn-1;mx=mx+1;}const pad=(mx-mn)*.12;mn=Math.max(0,mn-pad);mx=mx+pad;
   const x=i=>pts.length===1?(L+(W-L-R)/2):L+i*(W-L-R)/(pts.length-1);
   const y=v=>T+(H-T-B)*(1-(v-mn)/(mx-mn));
   let g='';
   for(let k=0;k<4;k++){const v=mn+(mx-mn)*k/3;g+=`<line class="grid" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text x="${L-5}" y="${y(v)+3}" text-anchor="end">${fmt(Math.round(v*10)/10)}</text>`;}
-  const path=pts.map((p,i)=>(i?'L':'M')+x(i).toFixed(1)+' '+y(p.v).toFixed(1)).join(' ');
+  let path='',lab='';
+  pts.forEach((p,i)=>{const nw=i===0||p.m!==pts[i-1].m;path+=(nw?'M':'L')+x(i).toFixed(1)+' '+y(p.v).toFixed(1)+' ';
+    if(labels&&nw){const nm=labels[p.m]||'';lab+=`<text class="lab" x="${Math.min(x(i)+2,W-R-70)}" y="${Math.max(y(p.v)-9,T)}">${esc(nm.length>22?nm.slice(0,21)+'…':nm)}</text>`;}});
   const col={easy:'var(--easy)',medium:'var(--med)',heavy:'var(--heavy)'};
   const dots=pts.map((p,i)=>`<circle cx="${x(i)}" cy="${y(p.v)}" r="5" fill="${col[p.r]||'var(--none)'}" stroke="var(--card)" stroke-width="1.5"/>`).join('');
   const xl=`<text x="${x(0)}" y="${H-8}" text-anchor="${pts.length===1?'middle':'start'}">${fmtDM(pts[0].d)}</text>`+(pts.length>1?`<text x="${x(pts.length-1)}" y="${H-8}" text-anchor="end">${fmtDM(pts[pts.length-1].d)}</text>`:'');
-  return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Kehitys">${g}<path class="ln" d="${path}"/>${dots}${xl}<text x="${L}" y="${T-2}">${unit}</text></svg>`;
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Kehitys">${g}<path class="ln" d="${path}"/>${dots}${lab}${xl}<text x="${L}" y="${T-6}">${unit}</text></svg>`;
 }
 function hExercises(){
   const seen=new Map();
   sortedSessions().forEach(s=>(s.exercises||[]).forEach(e=>{if(!seen.has(e.exId))seen.set(e.exId,(exById(e.exId)||e).name);}));
   if(!seen.size)return `<div class="empty">Ei vielä sarjakirjauksia.</div>`;
-  const sel=view.hex&&seen.has(view.hex)?view.hex:[...seen.keys()][0];
-  const opts=[...seen.entries()].sort((a,b)=>a[1].localeCompare(b[1],'fi')).map(([id,n])=>`<option value="${id}"${id===sel?' selected':''}>${esc(n)}</option>`).join('');
-  const occ=[];
-  [...S.sessions].sort((a,b)=>a.date.localeCompare(b.date)||(a.createdAt||0)-(b.createdAt||0)).forEach(s=>{const e=(s.exercises||[]).find(e=>e.exId===sel);if(e)occ.push({d:s.date,e});});
-  const useW=occ.some(o=>o.e.sets.some(st=>st.weight));
-  const pts=occ.slice(-30).map(o=>({d:o.d,r:o.e.rating,v:useW?Math.max(0,...o.e.sets.map(st=>st.weight||0)):Math.max(...o.e.sets.map(st=>st.reps||0))}));
-  let h=`<div class="card"><select data-change="hex">${opts}</select>
-    <div style="margin-top:10px">${chart(pts,useW?'kg (raskain sarja)':'toistot (paras sarja)')}</div>
-    <p class="small muted"><span class="dot d-easy"></span>helppo <span class="dot d-medium"></span>keskiraskas <span class="dot d-heavy"></span>raskas <span class="dot d-none"></span>ei arviota</p></div>`;
-  h+=`<div class="card">`+occ.slice(-15).reverse().map(o=>`<div class="listrow" style="cursor:default"><span>${fmtDay(o.d)}</span><span>${esc(setsText(o.e.sets))} ${o.e.rating?`<span class="dot d-${o.e.rating}"></span>`:''}</span></div>`).join('')+`</div>`;
+  const opts=[],roots=new Set();
+  [...seen.keys()].forEach(id=>{const ch=chainOf(id);if(ch.length>1&&!roots.has(ch[0])){roots.add(ch[0]);opts.push(['c:'+ch[0],'Ketju: '+ch.map(c=>(exById(c)||{name:c}).name).join(' → ')]);}});
+  [...seen.entries()].sort((a,b)=>a[1].localeCompare(b[1],'fi')).forEach(([id,n])=>opts.push([id,n]));
+  const keys=opts.map(o=>o[0]);
+  const sel=keys.includes(view.hex)?view.hex:(keys.find(k=>!k.startsWith('c:'))||keys[0]);
+  const members=sel.startsWith('c:')?chainOf(sel.slice(2)):[sel];
+  const occ=[];[...S.sessions].sort(byT).forEach(s=>(s.exercises||[]).forEach(e=>{const m=members.indexOf(e.exId);if(m>=0)occ.push({d:s.date,e,m});}));
+  const useW=occ.length>0&&occ.every(o=>o.e.sets.some(st=>st.weight));
+  const pts=occ.slice(-30).map(o=>({d:o.d,m:o.m,r:hardest(o.e.sets,o.e),v:useW?Math.max(0,...o.e.sets.map(st=>st.weight||0)):Math.max(...o.e.sets.map(st=>st.reps||0))}));
+  const labels=members.length>1?members.map(id=>(exById(id)||{name:id}).name):null;
+  let h=`<div class="card"><select data-change="hex">${opts.map(([k,l])=>`<option value="${k}"${k===sel?' selected':''}>${esc(l)}</option>`).join('')}</select>
+    ${pts.length?`<div style="margin-top:10px">${chart(pts,useW?'kg (raskain sarja)':'toistot (paras sarja)',labels)}</div>`:'<p class="muted">Ei kirjauksia.</p>'}
+    <p class="small muted">Pisteen väri = sarjojen raskain arvio: <span class="dot d-easy"></span>helppo <span class="dot d-medium"></span>keskiraskas <span class="dot d-heavy"></span>raskas <span class="dot d-none"></span>ei arviota</p>
+    ${!sel.startsWith('c:')&&exById(sel)?`<div class="row"><button class="btn small" data-act="openexplan" data-id="${sel}">Aseta seuraava tavoite</button></div>`:''}</div>`;
+  h+=`<div class="card">`+occ.slice(-15).reverse().map(o=>`<div class="listrow" style="cursor:default"><div class="grow">${fmtDay(o.d)}${labels?`<div class="small muted">${esc(labels[o.m])}</div>`:''}</div><span>${esc(setsText(o.e.sets))}</span><span class="pdots">${o.e.sets.map(st=>`<i class="dot d-${sr(st,o.e)||'none'}"></i>`).join('')}</span></div>`).join('')+`</div>`;
   return h;
-}
-function muscleCounts(ws){
-  const c={};
-  S.sessions.filter(s=>weekStart(s.date)===ws).forEach(s=>(s.exercises||[]).forEach(e=>{c[e.muscle]=(c[e.muscle]||0)+e.sets.length;}));
-  return c;
 }
 function hMuscles(){
-  const ws=view.mweek||weekStart(ymd());const c=muscleCounts(ws);
-  const groups=[...S.muscleGroups];const known=new Set(groups.map(g=>g.id));
-  if(Object.keys(c).some(k=>!known.has(k)))groups.push({id:'__muu',name:'Muu'});
-  const val=g=>g.id==='__muu'?Object.entries(c).filter(([k])=>!known.has(k)).reduce((a,[,v])=>a+v,0):(c[g.id]||0);
-  const mx=Math.max(1,...groups.map(val));
-  let h=`<div class="card"><div class="between"><button class="btn small" data-act="mweek" data-d="-7">‹</button><b>Viikko ${isoWeek(ws)} · ${fmtDM(ws)}–${fmtDM(addDays(ws,6))}</b><button class="btn small" data-act="mweek" data-d="7"${ws>=weekStart(ymd())?' disabled':''}>›</button></div>
-    <p class="small muted">Sarjat lihasryhmittäin</p>`;
-  h+=groups.map(g=>{const v=val(g);return `<div class="bar"><span>${esc(g.name)}</span><div class="track"><div class="fill" style="width:${v/mx*100}%"></div></div><b style="text-align:right">${v}</b></div>`;}).join('');
-  const fq=c['etureisi']||0,bq=c['takareisi']||0;
-  if(known.has('etureisi')&&known.has('takareisi')&&(fq||bq))h+=`<p class="small">Etureisi : takareisi = <b>${fq} : ${bq}</b>${fq&&bq?` (${fmt(Math.round(fq/bq*10)/10)} : 1)`:''}</p>`;
+  const cw=weekStart(ymd()),ws=view.mweek||cw,c=weightedCounts(ws),past=ws<cw;
+  const groups=[...S.muscleGroups];
+  const mx=Math.max(1,...groups.map(g=>Math.max(c[g.id]||0,g.max||0,g.min||0)));
+  let h=`<div class="card"><div class="between"><button class="btn small" data-act="mweek" data-d="-7" aria-label="Edellinen viikko">‹</button><b>Viikko ${isoWeek(ws)} · ${fmtDM(ws)}–${fmtDM(addDays(ws,6))}</b><button class="btn small" data-act="mweek" data-d="7"${ws>=cw?' disabled':''} aria-label="Seuraava viikko">›</button></div>
+    <p class="small muted">Painotetut sarjat: sarjat × lihaskerroin. Pystyviivat ovat tavoitteen ala- ja yläraja.</p>`;
+  h+=groups.map(g=>{const v=c[g.id]||0;const over=g.max!=null&&v>g.max,under=g.min!=null&&v<g.min&&past;
+    const ticks=(g.min!=null?`<i class="tick" style="left:${g.min/mx*100}%"></i>`:'')+(g.max!=null?`<i class="tick" style="left:${g.max/mx*100}%"></i>`:'');
+    const tg=[g.min!=null?fmt(g.min):'',g.max!=null?fmt(g.max):''];const tt=g.min!=null&&g.max!=null?`${tg[0]}–${tg[1]}`:g.max!=null?`≤${tg[1]}`:g.min!=null?`≥${tg[0]}`:'';
+    return `<div class="bar"><span>${esc(g.name)}</span><div class="track"><div class="fill${over?' over':under?' under':''}" style="width:${Math.min(100,v/mx*100)}%"></div>${ticks}</div><b>${fmt(v)}${tt?` <small>/ ${tt}</small>`:''}</b></div>`;}).join('');
+  (S.settings.ratioRules||[]).forEach(r=>{const a=c[r.a]||0,b=c[r.b]||0;const ok=!(b>0&&a<r.k*b-1e-9);
+    h+=`<p class="small">${ok?'✓':'⚠'} ${esc(mgName(r.a))} : ${esc(mgName(r.b).toLowerCase())} = <b>${fmt(a)} : ${fmt(b)}</b> (tavoite vähintään ${fmt(r.k)} : 1)</p>`;});
   h+=`</div>`;
   const weeks=[];for(let k=5;k>=0;k--)weeks.push(addDays(ws,-7*k));
-  const cs=weeks.map(muscleCounts);
+  const cs=weeks.map(weightedCounts);
   const tmx=Math.max(1,...cs.flatMap(o=>Object.values(o)));
   h+=`<h2>Trendi 6 viikkoa</h2><div class="card" style="overflow-x:auto"><table class="tbl"><tr><th></th>${weeks.map(w=>`<th>vk ${isoWeek(w)}</th>`).join('')}</tr>`+
-    S.muscleGroups.map(g=>`<tr><td>${esc(g.name)}</td>${cs.map(o=>{const v=o[g.id]||0;return `<td style="background:color-mix(in srgb,var(--acc) ${Math.round(v/tmx*45)}%,transparent)">${v||'·'}</td>`;}).join('')}</tr>`).join('')+`</table></div>`;
+    S.muscleGroups.map(g=>`<tr><td>${esc(g.name)}</td>${cs.map(o=>{const v=o[g.id]||0;return `<td style="background:color-mix(in srgb,var(--acc) ${Math.round(v/tmx*45)}%,transparent)">${v?fmt(v):'·'}</td>`;}).join('')}</tr>`).join('')+`</table></div>`;
   return h;
+}
+
+/* ---------- viikkoraportti ---------- */
+function setTxtR(st,e){const r=sr(st,e);return `${st.reps}${st.weight!=null?'×'+fmt(st.weight):''}${r?' '+RATE_L[r]:''}${st.t?' '+hm(st.t):''}`;}
+function tplItemFor(s,exId){const ty=typeById(s.typeId),p=ty&&ty.templates.find(t=>t.id===s.templateId);return p?p.items.find(i=>i.exId===exId):null;}
+const rngTxt=i=>i.repsMin===i.repsMax?String(i.repsMin):i.repsMin+'–'+i.repsMax;
+function weekReport(ws){
+  const we=addDays(ws,6),pw=addDays(ws,-7),L=[];
+  const wk=S.sessions.filter(s=>weekStart(s.date)===ws).sort(byT),pk=S.sessions.filter(s=>weekStart(s.date)===pw);
+  const nsets=arr=>arr.reduce((a,s)=>a+(s.exercises||[]).reduce((b,e)=>b+e.sets.length,0),0);
+  L.push(`# Treeniviikko ${isoWeek(ws)} (${fmtDM(ws)}–${fmtDM(we)}${parseYmd(we).getFullYear()})`);
+  L.push(`Treenipäiväkirja v${APPV}, raportti luotu ${fmtDM(ymd())}${new Date().getFullYear()} klo ${hm(Date.now())}. Sarjat muodossa toistot×kg, arvio (H = helppo, K = keskiraskas, R = raskas) ja arvion kellonaika.`);
+  L.push('','## Suunnitelman toteutuma');
+  S.types.forEach(ty=>{const c=wk.filter(s=>s.typeId===ty.id);
+    if(ty.schedule==='adhoc'){if(c.length){const mn=c.reduce((a,s)=>a+(s.durationMin||0),0),km=c.reduce((a,s)=>a+(s.distanceKm||0),0);L.push(`- ${ty.name}: ${c.length}×${mn?', '+fmt(mn)+' min':''}${km?', '+fmt(r2(km))+' km':''}`);}return;}
+    const q=ty.schedule==='fixed'?1:(ty.quota||0);if(!q&&!c.length)return;L.push(`- ${ty.name}: ${c.length}/${q}`);});
+  L.push(`- Sarjoja yhteensä ${nsets(wk)} (edellinen viikko ${nsets(pk)})`);
+  const c=weightedCounts(ws),cp=weightedCounts(pw);
+  L.push('','## Lihasryhmät (painotetut sarjat, suluissa edellinen viikko)');
+  S.muscleGroups.forEach(g=>{const v=c[g.id]||0,pv=cp[g.id]||0;const t=[g.min!=null?'min '+fmt(g.min):'',g.max!=null?'max '+fmt(g.max):''].filter(Boolean).join(', ');
+    const fl=(g.max!=null&&v>g.max)?' ⚠ yli':((g.min!=null&&v<g.min)?' ⚠ alle':'');
+    L.push(`- ${g.name} [${g.id}]: ${fmt(v)} (${fmt(pv)})${t?' – tavoite '+t:''}${fl}`);});
+  (S.settings.ratioRules||[]).forEach(r=>{const a=c[r.a]||0,b=c[r.b]||0;L.push(`- Suhde ${mgName(r.a)} : ${mgName(r.b).toLowerCase()} = ${fmt(a)} : ${fmt(b)}, tavoite vähintään ${fmt(r.k)} : 1${b>0&&a<r.k*b-1e-9?' ⚠':''}`);});
+  L.push('','## Treenit');
+  if(!wk.length)L.push('Ei kirjauksia.');
+  wk.forEach(s=>{const sp=sessSpan(s);
+    L.push('',`### ${fmtDay(s.date)} ${sessionTitle(s)}${s.combo?' [yhdistelmä: '+s.combo+']':''}${s.hurry?' [kiire]':''}${sp?` klo ${hm(sp.a)}–${hm(sp.b)} (${sp.min} min)`:''}`);
+    if(s.kind==='tick')L.push('- Tehty');
+    else if(s.kind==='activity')L.push('- '+sessionSummary(s));
+    else{
+      (s.exercises||[]).forEach(e=>{const it=tplItemFor(s,e.exId);L.push(`- ${e.name} [${e.exId}]: ${e.sets.map(st=>setTxtR(st,e)).join(', ')}${it?` (pohja ${it.sets}×${rngTxt(it)})`:''}`);});
+      const ty=typeById(s.typeId),p=ty&&ty.templates.find(t=>t.id===s.templateId);
+      if(p){const got=new Set(s.exercises.map(e=>e.exId));
+        const miss=p.items.filter(i=>!got.has(i.exId)).map(i=>((exById(i.exId)||{}).name||i.exId)+(i.core===false?' (valinnainen)':''));
+        const add=s.exercises.filter(e=>!p.items.some(i=>i.exId===e.exId)).map(e=>e.name);
+        const diff=s.exercises.map(e=>{const i=p.items.find(i=>i.exId===e.exId);return i&&e.sets.length!==i.sets?`${e.name} ${e.sets.length}/${i.sets}`:'';}).filter(Boolean);
+        const dv=[miss.length?'puuttui '+miss.join(', '):'',add.length?'lisätty '+add.join(', '):'',diff.length?'sarjamäärä '+diff.join(', '):''].filter(Boolean);
+        if(dv.length)L.push('- Poikkeamat pohjasta: '+dv.join('; '));}
+    }
+    if(s.note)L.push('- Muistiinpano: '+s.note.replace(/\s+/g,' '));
+  });
+  L.push('','## Kuormamuutokset edelliseen kertaan');
+  const ids=[];wk.forEach(s=>(s.exercises||[]).forEach(e=>{if(!ids.includes(e.exId))ids.push(e.exId);}));
+  const before=S.sessions.filter(s=>s.date<ws).sort(byT).reverse(),wkR=[...wk].reverse();
+  const top=e=>Math.max(0,...e.sets.map(s=>s.weight||0));
+  const desc=e=>`${top(e)?fmt(top(e))+' kg ':''}${e.sets.map(s=>s.reps).join('/')}`;
+  ids.forEach(id=>{const inWk=wk.map(s=>(s.exercises||[]).find(e=>e.exId===id)).filter(Boolean),lastE=inWk[inWk.length-1];
+    const prevE=before.map(s=>(s.exercises||[]).find(e=>e.exId===id)).find(Boolean);
+    const chain=(prevE?[prevE]:[]).concat(inWk);
+    L.push(`- ${lastE.name}: ${chain.length>1?chain.map(desc).join(' → '):'(ensimmäinen kerta) '+desc(lastE)}${prevE?'':' (ei aiempia viikkoja)'}`);});
+  if(!ids.length)L.push('Ei voimaliikkeitä.');
+  const tg=S.exercises.filter(x=>x.next);
+  if(tg.length){L.push('','## Voimassa olevat tavoitteet');tg.forEach(x=>{const n=x.next;L.push(`- ${x.name} [${x.id}]: ${n.weight!=null?fmt(n.weight)+' kg':''}${n.reps!=null?' × '+n.reps:''} (${n.src==='coach'?'valmennus':'oma'}${n.at?' '+fmtDM(n.at):''})${n.note?' – '+n.note:''}`);});}
+  L.push('','## Liikkeet ohjelmassa (tunniste = nimi; välineet ja painot; lihaskertoimet; pohjat)');
+  const used=new Map();S.types.forEach(t=>t.templates.forEach(p=>p.items.forEach(i=>{if(!used.has(i.exId))used.set(i.exId,[]);used.get(i.exId).push(`${p.name} ${i.sets}×${rngTxt(i)}${i.core===false?' valinnainen':''}`);})));
+  used.forEach((pl,id)=>{const x=exById(id);if(!x)return;const ch=chainOf(id);
+    L.push(`- ${id} = ${x.name}; ${weightsDesc(x)}; ${muscTxt(x.muscles)}; ${pl.join(' / ')}${ch.length>1?'; ketju '+ch.map(c=>(exById(c)||{}).name).join(' → '):''}`);});
+  L.push('','## Valmennustiedoston muoto','Tuodaan: Asetukset → Valmennus → Tuo valmennustiedosto. "paino" = seuraavan kerran paino (kg, valitaan yllä olevista painoista tai portaista), "lisays" = kg lisää edelliseen, "toistot" = seuraavan kerran toistot, "toistoalue" ja "sarjat" muuttavat pohjia pysyvästi, "lihastavoitteet" muuttaa viikkotavoitteita.','```json',COACH_EXAMPLE,'```');
+  return L.join('\n');
+}
+function openReport(ws){
+  view.reportTxt=weekReport(ws);view.reportWs=ws;
+  openModal(`<div class="between"><h1>Viikkoraportti</h1><button class="btn small ghost" data-act="closemodal">Sulje</button></div>
+    <p class="small muted">Viikko ${isoWeek(ws)}. Kopioi raportti ja liitä se keskusteluun Clauden kanssa. Keskustelusta saatavan valmennustiedoston voi tuoda Asetuksista.</p>
+    <div class="row"><button class="btn primary" data-act="repcopy">Kopioi raportti</button><button class="btn" data-act="repshare">Jaa tiedostona</button></div>
+    <textarea id="reptxt" rows="16" readonly class="mono" style="margin-top:12px">${esc(view.reportTxt)}</textarea>`);
+}
+
+/* ---------- valmennustiedosto ---------- */
+function matchEx(it){
+  if(it.id&&exById(it.id))return exById(it.id);
+  const n=normName(it.nimi||it.name);if(!n)return null;
+  return S.exercises.find(x=>normName(x.name)===n)||S.exercises.find(x=>!x.archived&&normName(x.name).startsWith(n))||null;
+}
+function coachTarget(o){
+  const it=o.it,x=o.x;let w=num(it.paino);
+  const add=num(it.lisays??it['lisäys']);
+  let skip=false;
+  if(w==null&&add!=null&&x){const lo=occurrences(x.id,1)[0];const cur=lo?Math.max(0,...lo.e.sets.map(s=>s.weight||0)):0;if(cur>0)w=r2(cur+add);else skip=true;}
+  const r=it.toistot!=null?parseInt(it.toistot):null;
+  return {w,r:Number.isFinite(r)?r:null,skip};
+}
+function previewCoach(d){
+  const items=(d.liikkeet||[]).map(it=>{const x=matchEx(it);return {it,x,on:!!x};});
+  const mt=(d.lihastavoitteet||[]).map(t=>{const g=S.muscleGroups.find(g=>g.id===t.ryhma||normName(g.name)===normName(t.ryhma));return {t,g,on:!!g};});
+  pendingCoach={d,items,mt};
+  let h=`<div class="between"><h1>Valmennustiedosto</h1><button class="btn small ghost" data-act="closemodal">Sulje</button></div>
+    <p class="muted">${d.pvm?esc(fmtDM(d.pvm)+d.pvm.slice(0,4)):''}</p>${d.yhteenveto?`<div class="card">${esc(d.yhteenveto)}</div>`:''}`;
+  if(items.length){h+=`<h2>Liikkeet</h2><div class="card">`+items.map((o,i)=>{const it=o.it,x=o.x,lines=[];
+      if(x){const {w,r,skip}=coachTarget(o);
+        if(skip)lines.push('<span class="err">Lisäys ohitetaan: liikkeestä ei ole aiempaa painoa.</span>');
+        if(w!=null||r!=null){let t=`Seuraava kerta: ${w!=null?fmt(w)+' kg':''}${w!=null&&r!=null?' × ':''}${r!=null?r+' toistoa':''}`;
+          const Lw=weightList(x);if(w!=null&&Lw&&!Lw.some(v=>Math.abs(v-w)<1e-6)){const near=Lw.reduce((a,b)=>Math.abs(b-w)<Math.abs(a-w)?b:a,Lw[0]);t+=` <span class="err">– ei painoportaissa, lähin ${fmt(near)} kg</span>`;}
+          lines.push(t);}
+        if(Array.isArray(it.toistoalue))lines.push(esc(`Toistoalue pohjiin: ${it.toistoalue[0]}–${it.toistoalue[1]}`));
+        if(it.sarjat)lines.push(esc(`Sarjoja pohjiin: ${it.sarjat}`));
+      }
+      return `<div class="pick"><input type="checkbox" data-change="coachpick" data-k="items" data-i="${i}"${o.on?' checked':''}${x?'':' disabled'}><div class="grow"><b>${esc(x?x.name:(it.nimi||it.id||'?'))}</b>
+        ${x?'':'<div class="small err">Liikettä ei löydy sovelluksesta – tarkista tunniste tai nimi.</div>'}
+        ${lines.map(l=>`<div class="small">${l}</div>`).join('')}${it.perustelu?`<div class="small muted">${esc(it.perustelu)}</div>`:''}</div></div>`;}).join('')+`</div>`;}
+  if(mt.length){h+=`<h2>Lihastavoitteet</h2><div class="card">`+mt.map((o,i)=>`<div class="pick"><input type="checkbox" data-change="coachpick" data-k="mt" data-i="${i}"${o.on?' checked':''}${o.g?'':' disabled'}><div class="grow"><b>${esc(o.g?o.g.name:o.t.ryhma)}</b><div class="small">${'min' in o.t?'min '+(o.t.min==null?'ei rajaa':fmt(o.t.min))+' ':''}${'max' in o.t?'max '+(o.t.max==null?'ei rajaa':fmt(o.t.max)):''}</div>${o.g?'':'<div class="small err">Lihasryhmää ei löydy.</div>'}</div></div>`).join('')+`</div>`;}
+  h+=`<div class="row"><button class="btn primary" id="coachbtn" data-act="coachapply">${coachBtnLabel()}</button><button class="btn" data-act="closemodal">Peru</button></div>`;
+  openModal(h);
+}
+function coachBtnLabel(){const p=pendingCoach;if(!p)return '';const n=p.items.filter(o=>o.on&&o.x).length+p.mt.filter(o=>o.on&&o.g).length;return `Ota käyttöön (${n})`;}
+function applyCoach(){
+  const p=pendingCoach;if(!p)return;const at=p.d.pvm||ymd();let n=0;
+  p.items.forEach(o=>{if(!o.on||!o.x)return;const it=o.it,x=o.x,{w,r}=coachTarget(o);
+    if(w!=null||r!=null)x.next={weight:w,reps:r,note:String(it.perustelu||''),src:'coach',at};
+    const ra=Array.isArray(it.toistoalue)&&it.toistoalue.length===2?it.toistoalue.map(v=>parseInt(v)):null,sets=it.sarjat!=null?parseInt(it.sarjat):null;
+    if(ra||sets>0)S.types.forEach(t=>t.templates.forEach(pp=>pp.items.forEach(i=>{if(i.exId!==x.id)return;if(ra&&ra.every(Number.isFinite)){i.repsMin=Math.min(...ra);i.repsMax=Math.max(...ra);}if(sets>0)i.sets=sets;})));
+    n++;});
+  p.mt.forEach(o=>{if(!o.on||!o.g)return;if('min' in o.t)o.g.min=o.t.min==null?null:num(o.t.min);if('max' in o.t)o.g.max=o.t.max==null?null:num(o.t.max);n++;});
+  pendingCoach=null;save();closeModal();render();toast(`Valmennus otettu käyttöön (${n} muutosta)`);
+}
+function handleImportText(txt){
+  let d;try{d=JSON.parse(txt);}catch(e){alert('Tiedosto ei ole kelvollista JSONia.');return;}
+  if(d&&(d.muoto==='treeni-valmennus'||d.format==='treeni-valmennus')){previewCoach(d);return;}
+  if(d&&Array.isArray(d.types)&&Array.isArray(d.sessions)){
+    if(!confirm(`Varmuuskopiossa on ${d.sessions.length} kirjausta${d.exportedAt?' ('+d.exportedAt.slice(0,10)+')':''}. Korvataanko nykyiset tiedot?`))return;
+    delete d.exportedAt;S=normalize(d);save();view.sub=null;render();toast('Tiedot palautettu');return;
+  }
+  alert('Tuntematon tiedosto. Odotettiin varmuuskopiota tai valmennustiedostoa ("muoto": "treeni-valmennus").');
 }
 
 /* ---------- näkymä: suunnitelma ---------- */
@@ -706,20 +1173,38 @@ function schedDesc(ty){
   if(ty.schedule==='flexible'&&ty.pair){const [m,id]=ty.pair.split(':');const o=typeById(id);if(o)s+=m==='with'?` · ${o.name.toLowerCase()}päivinä`:` · päivinä ilman: ${o.name.toLowerCase()}`;}
   return s+' · '+LOG[ty.logStyle].toLowerCase();
 }
+function exMeta(x){
+  const p=[EQUIP[x.equip]||''];
+  if(x.equip==='machine'||x.equip==='free'){if(x.ladder&&x.ladder.length)p.push('portaat '+x.ladder.slice(0,4).map(fmt).join('/')+(x.ladder.length>4?'…':''));else if(x.step||x.base)p.push(`${x.base?fmt(x.base)+' + ':''}askel ${fmt(x.step||S.settings.gymStep)} kg`);}
+  const ch=chainOf(x.id);if(ch.length>1)p.push(`ketju ${ch.indexOf(x.id)+1}/${ch.length}`);
+  return p.join(' · ');
+}
+function tplOptions(sel){
+  return S.types.filter(t=>t.logStyle==='full').flatMap(t=>t.templates.map(p=>{const v=t.id+'|'+p.id;return `<option value="${v}"${v===sel?' selected':''}>${esc(t.name+(p.name!==t.name?' – '+p.name:''))}</option>`;})).join('');
+}
 function vPlan(){
   if(view.sub&&view.sub.kind==='type')return planType(view.sub.id);
   if(view.sub&&view.sub.kind==='ex')return planEx(view.sub.id);
   let h=`<h1>Suunnitelma</h1><p class="small muted">Muutokset koskevat vain tulevia treenejä. Kirjattu historia säilyy ennallaan.</p>
     <h2>Treenityypit</h2><div class="card">`+S.types.map(ty=>`<div class="listrow" data-act="opentype" data-id="${ty.id}"><span class="cdot" style="background:${ty.color}"></span><div class="grow"><b>${esc(ty.name)}</b><div class="small muted">${esc(schedDesc(ty))}</div></div><span class="chev">›</span></div>`).join('')+
-    `</div><button class="btn block" data-act="newtype">+ Uusi treenityyppi</button><h2>Liikepankki</h2>`;
-  const known=new Set(S.muscleGroups.map(g=>g.id));
-  const groups=[...S.muscleGroups,{id:null,name:'Muu'}];
-  groups.forEach(g=>{
-    const xs=S.exercises.filter(x=>g.id===null?!known.has(x.muscle):x.muscle===g.id).sort(byName);
-    if(!xs.length)return;
-    h+=`<div class="card"><p class="small muted" style="margin-top:0">${esc(g.name)}</p>`+xs.map(x=>`<div class="listrow" data-act="openex" data-id="${x.id}"><div>${esc(x.name)}<div class="small muted">${EQUIP[x.equip]}${x.step?` · askel ${fmt(x.step)} kg`:''}</div></div><span class="chev">›</span></div>`).join('')+`</div>`;
+    `</div><button class="btn block" data-act="newtype">+ Uusi treenityyppi</button>`;
+  h+=`<h2>Yhdistelmätreenit</h2><p class="small muted">Yhdistelmä näkyy Tänään-sivulla, kun jokaisella osalla on viikkokiintiötä jäljellä. Tallennus kirjaa jokaisen osan omaksi treenikseen, joten molempien kiintiöt täyttyvät.</p>`;
+  (S.combos||[]).forEach(c=>{
+    h+=`<div class="tplbox"><div class="between"><input data-bind="combo" data-id="${c.id}" data-f="name" value="${esc(c.name)}" style="font-weight:700" aria-label="Yhdistelmän nimi"><button class="x" data-act="combodel" data-id="${c.id}" aria-label="Poista yhdistelmä">🗑</button></div>`+
+      c.parts.map((p,i)=>`<div class="between" style="margin-top:8px"><select data-bind="combopart" data-id="${c.id}" data-i="${i}" aria-label="Osa ${i+1}">${tplOptions(p.typeId+'|'+p.tplId)}</select><button class="x" data-act="combodelpart" data-id="${c.id}" data-i="${i}" aria-label="Poista osa">×</button></div>`).join('')+
+      `<button class="btn small" style="margin-top:8px" data-act="comboaddpart" data-id="${c.id}">+ Osa</button></div>`;
   });
-  return h+`<button class="btn block" data-act="newex">+ Uusi liike</button>`;
+  h+=`<button class="btn block" data-act="combonew">+ Uusi yhdistelmä</button><h2>Liikepankki</h2>`;
+  const act=S.exercises.filter(x=>!x.archived),arch=S.exercises.filter(x=>x.archived);
+  const known=new Set(S.muscleGroups.map(g=>g.id));
+  const row=x=>`<div class="listrow" data-act="openex" data-id="${x.id}"><div class="grow">${esc(x.name)}<div class="small muted">${esc(exMeta(x))}</div></div>${x.next?'<span class="chip ok">Tavoite</span>':''}<span class="chev">›</span></div>`;
+  [...S.muscleGroups,{id:null,name:'Muu'}].forEach(g=>{
+    const xs=act.filter(x=>g.id===null?!known.has(x.muscle):x.muscle===g.id).sort(byName);
+    if(xs.length)h+=`<div class="card"><p class="small muted" style="margin-top:0">${esc(g.name)}</p>${xs.map(row).join('')}</div>`;
+  });
+  h+=`<button class="btn block" data-act="newex">+ Uusi liike</button>`;
+  if(arch.length)h+=`<details class="card"><summary>Arkistoidut liikkeet (${arch.length})</summary>${arch.sort(byName).map(row).join('')}</details>`;
+  return h;
 }
 function planType(id){
   const ty=typeById(id);if(!ty){view.sub=null;return vPlan();}
@@ -736,18 +1221,20 @@ function planType(id){
   }
   h+=`<label>Kirjaustapa<select data-bind="ty" data-id="${ty.id}" data-f="logStyle">${Object.entries(LOG).map(([k,l])=>`<option value="${k}"${ty.logStyle===k?' selected':''}>${l}</option>`).join('')}</select></label></div>`;
   if(ty.logStyle==='full'){
-    h+=`<h2>Treenipohjat</h2><p class="small muted">Esim. Lyhyt ja Pitkä. Jokaisella liikkeellä on sarjamäärä ja toistoalue (kaksoisprogressio). Oletuspainoa käytetään vain, jos liikkeestä ei ole vielä historiaa.</p>`;
+    h+=`<h2>Treenipohjat</h2><p class="small muted">Sarjamäärä ja toistoalue liikkeittäin (kaksoisprogressio). Ydin-liikkeet tehdään aina; valinnaiset jäävät pois, kun treeni aloitetaan Kiire-painikkeella. Oletuspainoa käytetään vain, jos liikkeestä ei ole historiaa.</p>`;
     ty.templates.forEach(p=>{
-      h+=`<div class="tplbox"><div class="between"><input data-bind="tpl" data-ty="${ty.id}" data-tpl="${p.id}" data-f="name" value="${esc(p.name)}" style="font-weight:700"><button class="x" data-act="deltpl" data-ty="${ty.id}" data-tpl="${p.id}" aria-label="Poista pohja">🗑</button></div>
-        <label>Ohje / lämmittely (ei lasketa sarjoihin)<input data-bind="tpl" data-ty="${ty.id}" data-tpl="${p.id}" data-f="note" value="${esc(p.note||'')}" placeholder="Esim. 5 min soutu"></label>`;
+      h+=`<div class="tplbox"><div class="between"><input data-bind="tpl" data-ty="${ty.id}" data-tpl="${p.id}" data-f="name" value="${esc(p.name)}" style="font-weight:700" aria-label="Pohjan nimi"><button class="x" data-act="deltpl" data-ty="${ty.id}" data-tpl="${p.id}" aria-label="Poista pohja">🗑</button></div>
+        <label>Ohje / lämmittely (ei lasketa sarjoihin)<input data-bind="tpl" data-ty="${ty.id}" data-tpl="${p.id}" data-f="note" value="${esc(p.note||'')}" placeholder="Esim. 5 min soutu"></label>
+        ${p.items.length?'':'<p class="small err">Tyhjä pohja – lisää liikkeitä tai poista pohja.</p>'}`;
       p.items.forEach((it,i)=>{
         const a=`data-ty="${ty.id}" data-tpl="${p.id}" data-i="${i}"`;
-        h+=`<div class="itemrow"><div class="between"><select data-bind="item" ${a} data-f="exId">${exOptions(it.exId)}</select>
+        h+=`<div class="itemrow"><div class="between"><select data-bind="item" ${a} data-f="exId" aria-label="Liike">${exOptions(it.exId)}</select>
           <button class="x" data-act="itemup" ${a} aria-label="Siirrä ylös">↑</button><button class="x" data-act="itemdel" ${a} aria-label="Poista">×</button></div>
-          <div class="mini"><input data-bind="item" ${a} data-f="sets" inputmode="numeric" value="${esc(it.sets)}"><span class="u">×</span>
-          <input data-bind="item" ${a} data-f="repsMin" inputmode="numeric" value="${esc(it.repsMin)}"><span class="u">–</span>
-          <input data-bind="item" ${a} data-f="repsMax" inputmode="numeric" value="${esc(it.repsMax)}"><span class="u">toist.</span>
-          <input data-bind="item" ${a} data-f="weight" inputmode="decimal" value="${esc(fmtIn(it.weight))}" placeholder="–"><span class="u">kg</span></div></div>`;
+          <div class="mini"><input data-bind="item" ${a} data-f="sets" inputmode="numeric" value="${esc(it.sets)}" aria-label="Sarjat"><span class="u">×</span>
+          <input data-bind="item" ${a} data-f="repsMin" inputmode="numeric" value="${esc(it.repsMin)}" aria-label="Toistot vähintään"><span class="u">–</span>
+          <input data-bind="item" ${a} data-f="repsMax" inputmode="numeric" value="${esc(it.repsMax)}" aria-label="Toistot enintään"><span class="u">toist.</span>
+          <input data-bind="item" ${a} data-f="weight" inputmode="decimal" value="${esc(fmtIn(it.weight))}" placeholder="–" aria-label="Oletuspaino"><span class="u">kg</span>
+          <button class="tgl${it.core!==false?' on':''}" data-act="itemcore" ${a}>${it.core!==false?'Ydin':'Valinnainen'}</button></div></div>`;
       });
       h+=`<button class="btn small" data-act="additem" data-ty="${ty.id}" data-tpl="${p.id}">+ Liike</button></div>`;
     });
@@ -760,65 +1247,94 @@ function planType(id){
 }
 function planEx(id){
   const x=exById(id);if(!x){view.sub=null;return vPlan();}
-  const inTpl=[];S.types.forEach(t=>t.templates.forEach(p=>{if(p.items.some(i=>i.exId===id))inTpl.push(t.name+' – '+p.name);}));
-  return `<button class="btn small ghost" data-act="back">‹ Takaisin</button><h1>${esc(x.name)}</h1>
-    <div class="card"><label>Nimi<input data-bind="exl" data-id="${x.id}" data-f="name" value="${esc(x.name)}"></label>
-    <label>Lihasryhmä<select data-bind="exl" data-id="${x.id}" data-f="muscle">${S.muscleGroups.map(g=>`<option value="${g.id}"${x.muscle===g.id?' selected':''}>${esc(g.name)}</option>`).join('')}</select></label>
-    <label>Välineet<select data-bind="exl" data-id="${x.id}" data-f="equip">${Object.entries(EQUIP).map(([k,l])=>`<option value="${k}"${x.equip===k?' selected':''}>${l}</option>`).join('')}</select></label>
-    ${x.equip==='machine'||x.equip==='free'?`<label>Painonlisäyksen askel (kg)<input data-bind="exl" data-id="${x.id}" data-f="step" inputmode="decimal" value="${esc(fmtIn(x.step))}" placeholder="oletus ${fmt(S.settings.gymStep)}"></label>`:''}
-    ${x.equip==='dumbbell'?`<p class="small muted">Painoehdotukset otetaan käsipainolistasta (Asetukset).</p>`:''}</div>
+  const inTpl=[];S.types.forEach(t=>t.templates.forEach(p=>{if(p.items.some(i=>i.exId===id))inTpl.push(t.name+(p.name!==t.name?' – '+p.name:''));}));
+  const a=`data-id="${x.id}"`;
+  let h=`<button class="btn small ghost" data-act="back">‹ Takaisin</button><h1>${esc(x.name)}</h1>${x.archived?'<span class="chip info">Arkistoitu</span>':''}
+    <div class="card"><label>Nimi<input data-bind="exl" ${a} data-f="name" value="${esc(x.name)}"></label>
+    <label>Välineet<select data-bind="exl" ${a} data-f="equip">${Object.entries(EQUIP).map(([k,l])=>`<option value="${k}"${x.equip===k?' selected':''}>${l}</option>`).join('')}</select></label>`;
+  if(x.equip==='machine'||x.equip==='free')h+=`<div class="two"><label>Aloituspaino (kg)<input data-bind="exl" ${a} data-f="base" inputmode="decimal" value="${esc(fmtIn(x.base))}" placeholder="0"></label>
+      <label>Askel (kg)<input data-bind="exl" ${a} data-f="step" inputmode="decimal" value="${esc(fmtIn(x.step))}" placeholder="oletus ${fmt(S.settings.gymStep)}"></label></div>
+      <label>Tai painoportaat listana (kg, erota puolipisteellä)<input data-bind="exl" ${a} data-f="ladder" value="${esc((x.ladder||[]).map(fmtIn).join('; '))}" placeholder="esim. 36; 43; 50"></label>
+      <p class="small muted" id="ladprev">${esc(ladderText(x))}</p>`;
+  if(x.equip==='bodyweight')h+=`<label>Lisäpainon askel (kg, valinnainen)<input data-bind="exl" ${a} data-f="step" inputmode="decimal" value="${esc(fmtIn(x.step))}" placeholder="oletus ${fmt(S.settings.gymStep)}"></label>`;
+  if(isDb(x))h+=`<p class="small muted">${x.equip==='dumbbell'?'Molemmat käsipainot ladataan samalla painolla':'Yksi käsipaino, johon voi käyttää kaikki levyt'}. Mahdolliset painot: ${[...dbMap(nDbOf(x)).keys()].map(fmt).join(', ')} kg.</p>`;
+  h+=`</div><h2>Lihasryhmät</h2><div class="card"><p class="small muted">Kerroin kertoo, montako sarjaa yksi sarja tätä liikettä on lihasryhmälle: 1 = päälihas, 0,5 = avustava, tyhjä = ei kuormita.</p>
+    <div class="mgrid">${S.muscleGroups.map(g=>`<span>${esc(g.name)}</span><input data-bind="exm" ${a} data-g="${g.id}" inputmode="decimal" value="${esc(fmtIn(x.muscles[g.id]))}" placeholder="–" aria-label="${esc(g.name)} kerroin">`).join('')}</div></div>
+    <h2>Ohje</h2><div class="card"><textarea data-bind="exl" ${a} data-f="desc" rows="4" placeholder="Lyhyt kuvaus liikkeen suorituksesta" aria-label="Ohje">${esc(x.desc||'')}</textarea></div>`;
+  const ch=chainOf(x.id);
+  h+=`<h2>Vaikeutusketju</h2><div class="card">${ch.length>1?`<p>${ch.map(c=>c===x.id?`<b>${esc(exById(c).name)}</b>`:esc((exById(c)||{}).name||'?')).join(' → ')}</p>`:'<p class="small muted">Ketju yhdistää liikkeen helpommat ja vaikeammat versiot, jotta kehitys näkyy yhtenä jatkumona historiassa.</p>'}
+    <label>Helpompi versio<select data-bind="exl" ${a} data-f="easier"><option value="">Ei helpompaa versiota</option>${S.exercises.filter(y=>y.id!==x.id&&(!y.archived||y.id===x.easier)).sort(byName).map(y=>`<option value="${y.id}"${x.easier===y.id?' selected':''}>${esc(y.name)}</option>`).join('')}</select></label>
+    <div class="row"><button class="btn small" data-act="newharder" ${a}>+ Luo vaikeampi versio</button></div></div>`;
+  const n=x.next||{};
+  h+=`<h2>Seuraava tavoite</h2><div class="card"><p class="small muted">Ohittaa sovelluksen oman ehdotuksen seuraavalla kerralla ja poistuu, kun liike on kirjattu.</p>
+    <div class="two"><label>Paino (kg)<input data-bind="exn" ${a} data-f="weight" inputmode="decimal" value="${esc(fmtIn(n.weight))}" placeholder="–"></label>
+    <label>Toistot<input data-bind="exn" ${a} data-f="reps" inputmode="numeric" value="${esc(n.reps??'')}" placeholder="–"></label></div>
+    <label>Perustelu<input data-bind="exn" ${a} data-f="note" value="${esc(n.note||'')}" placeholder="Esim. 3×12 meni helposti"></label>
+    ${x.next?`<p class="small muted">${x.next.src==='coach'?'Valmennustiedostosta':'Asetettu käsin'}${x.next.at?' '+fmtDM(x.next.at):''}</p><button class="btn small ghost" data-act="exnclear" ${a}>Poista tavoite</button>`:''}</div>
     <p class="small muted">${inTpl.length?'Käytössä pohjissa: '+esc(inTpl.join(', ')):'Ei käytössä missään pohjassa.'}</p>
-    <button class="btn danger block" data-act="delexl" data-id="${x.id}">Poista liike</button>`;
+    <div class="row"><button class="btn" data-act="exarch" ${a}>${x.archived?'Palauta käyttöön':'Arkistoi'}</button><button class="btn danger" data-act="delexl" ${a}>Poista liike</button></div>`;
+  return h;
 }
 
 /* ---------- näkymä: asetukset ---------- */
+function hwChips(){
+  const p=dbMap(2),o=dbMap(1);
+  const ch=m=>[...m.entries()].map(([w,u])=>`<span class="chip" title="${u.length?esc(u.map(fmt).join(' + ')):'kahva'}">${fmt(w)}</span>`).join('')||'<span class="muted small">Ei painoja – tarkista kahva ja levyt.</span>';
+  return `<p class="small" style="margin-top:12px"><b>Pari</b> (molemmat käsipainot samalla painolla), kg</p><div>${ch(p)}</div><p class="small" style="margin-top:10px"><b>Yksi käsipaino</b> (kaikki levyt yhteen), kg</p><div>${ch(o)}</div>`;
+}
 function vSettings(){
-  const st=S.settings;const le=st.lastExport;
+  const st=S.settings,le=st.lastExport,cw=weekStart(ymd());
+  const gsel=(v,i,f)=>`<select data-bind="rr" data-i="${i}" data-f="${f}" aria-label="Lihasryhmä">${S.muscleGroups.map(g=>`<option value="${g.id}"${g.id===v?' selected':''}>${esc(g.name)}</option>`).join('')}</select>`;
   return `<h1>Asetukset</h1>
-  <h2>Painot</h2><div class="card">
-    <label>Salin painonlisäys, oletus (kg)<input data-bind="st" data-f="gymStep" inputmode="decimal" value="${esc(fmtIn(st.gymStep))}"></label>
-    <p class="small muted">Laitekohtaisen askeleen voi asettaa liikkeen tiedoissa (esim. jalkaprässi 5 kg).</p>
+  <h2>Valmennus</h2><div class="card">
+    <p class="small">Viikkoraportti on tiivis yhteenveto, jonka voi liittää keskusteluun Clauden kanssa. Keskustelun tuloksena saat valmennustiedoston, jonka tuot tänne: se asettaa liikkeille seuraavat tavoitteet perusteluineen.</p>
+    <div class="row"><button class="btn primary" data-act="report" data-ws="${cw}">Tämän viikon raportti</button><button class="btn" data-act="report" data-ws="${addDays(cw,-7)}">Edellinen viikko</button></div>
+    <div class="row"><button class="btn" data-act="import">Tuo valmennustiedosto…</button></div>
+  </div>
+  <h2>Salin painot</h2><div class="card">
+    <label>Painonlisäyksen oletusaskel (kg)<input data-bind="st" data-f="gymStep" inputmode="decimal" value="${esc(fmtIn(st.gymStep))}"></label>
+    <p class="small muted">Laitekohtaisen aloituspainon, askeleen tai painoportaat asetetaan liikkeen tiedoissa (esim. aloitus 1 kg ja askel 7 kg → 36, 43, 50).</p>
   </div>
   <h2>Käsipainot</h2><div class="card">
     <label>Kahvan paino (kg, lukot mukaan lukien)<input data-bind="st" data-f="dbHandle" inputmode="decimal" value="${esc(fmtIn(st.dbHandle))}"></label>
-    <label>Levyparit (kg, erota puolipisteellä; sama luku kahdesti = kaksi paria)<input data-bind="st" data-f="dbDisks" value="${esc(st.dbDisks.map(fmtIn).join('; '))}"></label>
-    <label class="inline" style="margin-top:10px"><input type="checkbox" data-bind="st" data-f="dbBarOnly"${st.dbBarOnly?' checked':''} style="width:22px;min-height:22px">Kahvaa käytetään myös ilman levyjä</label>
-    <p class="small muted" style="margin-top:10px">Mahdolliset painot (yksi käsipaino):</p>
+    <p class="small muted" style="margin-top:12px">Levyt: koko ja kappalemäärä yhteensä molemmille käsipainoille. Parikäyttöön tarvitaan 4 samaa levyä (yksi kumpaankin päähän kumpaankin käsipainoon). Levypaikkojen määrä rajaa, montako levyä mahtuu yhdelle puolelle.</p>
+    ${(st.dbDiskCounts||[]).map((d,i)=>`<div class="drow"><input data-bind="disk" data-i="${i}" data-f="w" inputmode="decimal" value="${esc(fmtIn(d.w))}" aria-label="Levyn paino"><span>kg ×</span><input data-bind="disk" data-i="${i}" data-f="n" inputmode="numeric" value="${d.n}" aria-label="Kappalemäärä"><span>kpl</span><button class="x" data-act="diskdel" data-i="${i}" aria-label="Poista levy">×</button></div>`).join('')}
+    <button class="btn small" data-act="diskadd">+ Levy</button>
+    <label>Levyjä enintään yhdelle puolelle kahvaa<input data-bind="st" data-f="dbMaxPerSide" inputmode="numeric" value="${st.dbMaxPerSide}"></label>
+    <label class="inline" style="margin-top:12px"><input type="checkbox" data-bind="st" data-f="dbBarOnly"${st.dbBarOnly?' checked':''} style="width:22px;min-height:22px">Kahvaa käytetään myös ilman levyjä</label>
     <div id="hwlist">${hwChips()}</div>
   </div>
   <h2>Kaksoisprogressio</h2><div class="card">
-    <p class="small">Samalla painolla lisätään toistoja, kunnes kaikki sarjat yltävät toistoalueen ylärajaan. Sitten paino nousee yhden portaan ja toistot palaavat alarajalle. Toistoalue asetetaan liikekohtaisesti treenipohjissa.</p>
+    <p class="small">Samalla painolla lisätään toistoja, kunnes kaikki sarjat yltävät toistoalueen ylärajaan eikä yksikään sarja tuntunut raskaalta. Sitten paino nousee yhden portaan ja toistot palaavat alarajalle.</p>
     <div class="inline" style="margin-top:8px"><span class="small muted">Oletusalue uusille liikkeille</span>
-      <input data-bind="st" data-f="repsMin" inputmode="numeric" value="${st.repsMin}" style="width:60px;text-align:center">–
-      <input data-bind="st" data-f="repsMax" inputmode="numeric" value="${st.repsMax}" style="width:60px;text-align:center"></div>
-    <label>Pidä paino, kun näin monta viime kertaa on ollut raskaita (0 = ei käytössä)<input data-bind="st" data-f="heavyCount" inputmode="numeric" value="${st.heavyCount}"></label>
-    <p class="small muted">Painoa ei nosteta, jos ylärajaan ylletty kerta tuntui raskaalta.</p>
+      <input data-bind="st" data-f="repsMin" inputmode="numeric" value="${st.repsMin}" style="width:60px;text-align:center" aria-label="Alaraja">–
+      <input data-bind="st" data-f="repsMax" inputmode="numeric" value="${st.repsMax}" style="width:60px;text-align:center" aria-label="Yläraja"></div>
+    <label>Pidä paino, kun viimeinen sarja on ollut raskas näin monta kertaa peräkkäin (0 = ei käytössä)<input data-bind="st" data-f="heavyCount" inputmode="numeric" value="${st.heavyCount}"></label>
   </div>
-  <h2>Lihasryhmät</h2><div class="card">
-    ${S.muscleGroups.map(g=>`<div class="between" style="margin:6px 0"><input data-bind="mg" data-id="${g.id}" value="${esc(g.name)}"><button class="x" data-act="mgdel" data-id="${g.id}" aria-label="Poista">×</button></div>`).join('')}
+  <h2>Lihasryhmät ja viikkotavoitteet</h2><div class="card">
+    <p class="small muted">Tavoitteet painotettuina sarjoina viikossa. Tyhjä = ei rajaa. Ylitykset näkyvät Tänään-sivulla heti, alitukset perjantaista alkaen.</p>
+    <div class="trow thead"><span>Ryhmä</span><span>min</span><span>max</span><span></span></div>
+    ${S.muscleGroups.map(g=>`<div class="trow"><input data-bind="mg" data-id="${g.id}" data-f="name" value="${esc(g.name)}" aria-label="Nimi"><input class="n" data-bind="mg" data-id="${g.id}" data-f="min" inputmode="decimal" value="${esc(fmtIn(g.min))}" placeholder="–" aria-label="${esc(g.name)} vähintään"><input class="n" data-bind="mg" data-id="${g.id}" data-f="max" inputmode="decimal" value="${esc(fmtIn(g.max))}" placeholder="–" aria-label="${esc(g.name)} enintään"><button class="x" data-act="mgdel" data-id="${g.id}" aria-label="Poista">×</button></div>`).join('')}
     <button class="btn small" data-act="mgadd">+ Lihasryhmä</button>
+    <p class="small" style="margin-top:16px"><b>Suhdesäännöt</b></p>
+    ${(st.ratioRules||[]).map((r,i)=>`<div class="rrow">${gsel(r.a,i,'a')}<span>≥</span><input data-bind="rr" data-i="${i}" data-f="k" inputmode="decimal" value="${esc(fmtIn(r.k))}" aria-label="Kerroin"><span>×</span>${gsel(r.b,i,'b')}<button class="x" data-act="rrdel" data-i="${i}" aria-label="Poista sääntö">×</button></div>`).join('')}
+    <button class="btn small" data-act="rradd">+ Suhdesääntö</button>
   </div>
   <h2>Varmuuskopio</h2><div class="card">
     <p class="small">${le?`Edellinen varmuuskopio: ${fmtDM(le.slice(0,10))}${le.slice(0,4)}`:'Varmuuskopiota ei ole vielä tehty.'} · ${S.sessions.length} kirjausta</p>
     <div class="row"><button class="btn primary" data-act="exportjson">Tallenna varmuuskopio (JSON)</button></div>
     <div class="row"><button class="btn" data-act="copytsv">Kopioi taulukko Sheetsiin</button><button class="btn" data-act="exportcsv">Tallenna CSV</button></div>
     <div class="row"><button class="btn" data-act="import">Palauta varmuuskopiosta…</button></div>
-    <p class="small muted">Varmuuskopio palauttaa kaiken. Taulukko on yksi rivi per sarja, ja sen voi liittää suoraan Google Sheetsiin.</p>
+    <p class="small muted">Taulukossa on yksi rivi per sarja: arvio, kellonaika ja tauko edellisestä sarjasta.</p>
   </div>
   <h2>Tietoja</h2><div class="card">
-    <p class="small muted">Tiedot tallennetaan tämän laitteen selaimeen${persisted?' (pysyvä tallennus myönnetty)':''}. Treenipäiväkirja v1.0</p>
+    <p class="small muted">Tiedot tallennetaan tämän laitteen selaimeen${persisted?' (pysyvä tallennus myönnetty)':''}. Treenipäiväkirja v${APPV}</p>
     <div class="row"><button class="btn" data-act="reseedprog">Palauta oletusohjelma</button><button class="btn danger" data-act="reset">Tyhjennä kaikki tiedot</button></div>
-    <p class="small muted">Oletusohjelman palautus korvaa treenityypit ja liikepankin, mutta historia säilyy.</p>
+    <p class="small muted">Oletusohjelman palautus korvaa treenityypit, yhdistelmät ja liikepankin, mutta historia säilyy.</p>
   </div>`;
 }
 
-function hwChips(){
-  const c=dbCombos(S.settings);
-  if(!c.size)return '<span class="muted small">Ei painoja – tarkista kahva ja levyt.</span>';
-  return [...c.entries()].map(([w,u])=>`<span class="chip" title="${u.length?esc(u.map(fmt).join(' + ')):'kahva'}">${fmt(w)} kg</span>`).join('');
-}
-
-/* ---------- vienti / tuonti ---------- */
+/* ---------- vienti ---------- */
 async function shareOrDownload(name,text,mime){
   const file=new File([text],name,{type:mime});
   if(navigator.canShare&&navigator.canShare({files:[file]})){
@@ -834,66 +1350,85 @@ async function exportJson(){
 }
 function flatRows(){
   const dec=n=>n==null?'':String(n).replace('.',',');
-  const rows=[['pvm','viikko','treenityyppi','pohja','liike','lihasryhmä','sarja','toistot','paino_kg','tuntuma','kesto_min','matka_km','muistiinpano']];
-  [...S.sessions].sort((a,b)=>a.date.localeCompare(b.date)||(a.createdAt||0)-(b.createdAt||0)).forEach(s=>{
-    const base=[s.date,isoWeek(s.date),s.typeName,s.templateName||''];
-    if(s.kind==='full'){let first=true;s.exercises.forEach(e=>e.sets.forEach((st,j)=>{rows.push([...base,e.name,mgName(e.muscle),j+1,st.reps,dec(st.weight),e.rating?RATE[e.rating]:'','','',first?s.note:'']);first=false;}));}
-    else rows.push([...base,'','','','','',s.rating?RATE[s.rating]:'',dec(s.durationMin),dec(s.distanceKm),s.note||'']);
+  const rows=[['pvm','viikko','treenityyppi','pohja','yhdistelmä','liike','lihasryhmä','sarja','toistot','paino_kg','tuntuma','aika','tauko_s','kesto_min','matka_km','muistiinpano']];
+  [...S.sessions].sort(byT).forEach(s=>{
+    const base=[s.date,isoWeek(s.date),s.typeName,s.templateName||'',s.combo||''];
+    if(s.kind==='full'){
+      const ts=[];s.exercises.forEach(e=>e.sets.forEach(st=>{if(st.t)ts.push(Date.parse(st.t));}));ts.sort((a,b)=>a-b);
+      let first=true;
+      s.exercises.forEach(e=>e.sets.forEach((st,j)=>{const t=st.t?Date.parse(st.t):null,prev=t?ts.filter(x=>x<t).pop():null;const r=sr(st,e);
+        rows.push([...base,e.name,mgName((exById(e.exId)||e).muscle),j+1,st.reps,dec(st.weight),r?RATE[r]:'',t?hms(t):'',prev?Math.round((t-prev)/1000):'','','',first?s.note:'']);first=false;}));
+    }else rows.push([...base,'','','','','',s.rating?RATE[s.rating]:'','','',dec(s.durationMin),dec(s.distanceKm),s.note||'']);
   });
   return rows;
 }
 function exportCsv(){
   const cell=v=>{v=String(v??'');return /[;"\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
-  shareOrDownload(`treeni-taulukko-${ymd()}.csv`,'\ufeff'+flatRows().map(r=>r.map(cell).join(';')).join('\r\n'),'text/csv');
+  shareOrDownload(`treeni-taulukko-${ymd()}.csv`,'﻿'+flatRows().map(r=>r.map(cell).join(';')).join('\r\n'),'text/csv');
+}
+async function copyText(txt,okMsg){
+  try{await navigator.clipboard.writeText(txt);toast(okMsg);return true;}catch(e){return false;}
 }
 async function copyTsv(){
   const tsv=flatRows().map(r=>r.map(v=>String(v??'').replace(/[\t\r\n]+/g,' ')).join('\t')).join('\n');
-  try{await navigator.clipboard.writeText(tsv);toast('Taulukko kopioitu – liitä Sheetsiin');}
-  catch(e){openModal(`<div class="between"><h1>Kopioi taulukko</h1><button class="btn small ghost" data-act="closemodal">Sulje</button></div><p class="small muted">Valitse teksti ja kopioi.</p><textarea rows="12" readonly>${esc(tsv)}</textarea>`);}
+  if(!(await copyText(tsv,'Taulukko kopioitu – liitä Sheetsiin')))openModal(`<div class="between"><h1>Kopioi taulukko</h1><button class="btn small ghost" data-act="closemodal">Sulje</button></div><p class="small muted">Valitse teksti ja kopioi.</p><textarea rows="12" readonly>${esc(tsv)}</textarea>`);
 }
 document.getElementById('importfile').addEventListener('change',e=>{
   const f=e.target.files[0];e.target.value='';if(!f)return;
-  const r=new FileReader();
-  r.onload=()=>{
-    try{const d=JSON.parse(r.result);if(!Array.isArray(d.types)||!Array.isArray(d.sessions))throw new Error('Tiedosto ei ole tämän sovelluksen varmuuskopio.');
-      if(!confirm(`Varmuuskopiossa on ${d.sessions.length} kirjausta${d.exportedAt?' ('+d.exportedAt.slice(0,10)+')':''}. Korvataanko nykyiset tiedot?`))return;
-      delete d.exportedAt;S=normalize(d);save();view.sub=null;render();toast('Tiedot palautettu');
-    }catch(err){alert('Palautus epäonnistui: '+err.message);}
-  };
-  r.readAsText(f);
+  const r=new FileReader();r.onload=()=>handleImportText(String(r.result));r.readAsText(f);
 });
 
 /* ---------- kenttien sidonta ---------- */
 function bind(el,isSelect){
-  const b=el.dataset.bind,f=el.dataset.f,v=el.value,ds=el.dataset;
+  const b=el.dataset.bind,f=el.dataset.f,ds=el.dataset;let v=el.value;
   if(b==='d'){draft[f]=v;saveDraft();return;}
   if(b==='set'){const e=draft.exercises[+ds.ex],j=+ds.set,old=e.sets[j][f];e.sets[j][f]=v;if(f==='weight')fillDown(e,j,old,+ds.ex);saveDraft();return;}
   let rerender=isSelect;
   if(b==='ty'){
     const ty=typeById(ds.id);if(!ty)return;
-    if(f==='weekday')ty.weekday=+v;
-    else if(f==='quota')ty.quota=Math.max(0,parseInt(v)||0);
-    else ty[f]=v;
-    if(f==='logStyle'&&v==='full'&&!ty.templates.length)ty.templates.push({id:uid(),name:'Perus',items:[]});
+    if(f==='weekday')ty.weekday=+v;else if(f==='quota')ty.quota=Math.max(0,parseInt(v)||0);else ty[f]=v;
+    if(f==='logStyle'&&v==='full'&&!ty.templates.length)ty.templates.push({id:uid(),name:'Perus',note:'',items:[]});
   }else if(b==='tpl'){
     const p=typeById(ds.ty).templates.find(p=>p.id===ds.tpl);p[f]=v;
   }else if(b==='item'){
     const it=typeById(ds.ty).templates.find(p=>p.id===ds.tpl).items[+ds.i];
     if(f==='exId')it.exId=v;else if(f==='weight'){const n=num(v);it.weight=n==null?'':n;}else it[f]=Math.max(0,parseInt(v)||0);
   }else if(b==='exl'){
-    const x=exById(ds.id);
-    if(f==='step')x.step=num(v)||null;else x[f]=v;
+    const x=exById(ds.id);if(!x)return;
+    if(f==='step')x.step=num(v)||null;
+    else if(f==='base'){const n=num(v);x.base=n!=null&&n>=0?n:null;}
+    else if(f==='ladder'){const L=v.split(/[;\s]+/).map(num).filter(n=>n!=null&&n>=0);x.ladder=L.length?[...new Set(L)].sort((a,b)=>a-b):null;}
+    else if(f==='easier'){
+      let c=v?exById(v):null,cyc=false;for(let g=0;c&&g<60;g++){if(c.id===x.id){cyc=true;break;}c=c.easier?exById(c.easier):null;}
+      if(cyc){alert('Valinta tekisi ketjuun silmukan.');}else x.easier=v||null;
+      rerender=true;
+    }
+    else x[f]=v;
+    if(['step','base','ladder'].includes(f)){const p=document.getElementById('ladprev');if(p)p.textContent=ladderText(x);}
+  }else if(b==='exm'){
+    const x=exById(ds.id);const n=num(v);if(n&&n>0)x.muscles[ds.g]=n;else delete x.muscles[ds.g];x.muscle=primaryOf(x.muscles)||x.muscle;
+  }else if(b==='exn'){
+    const x=exById(ds.id);const n=x.next?{...x.next}:{weight:null,reps:null,note:''};
+    if(f==='weight')n.weight=num(v);else if(f==='reps'){const r=parseInt(v);n.reps=Number.isFinite(r)?r:null;}else n.note=v;
+    n.src='manual';n.at=ymd();x.next=(n.weight==null&&n.reps==null&&!n.note)?null:n;
+  }else if(b==='combo'){
+    const c=S.combos.find(c=>c.id===ds.id);if(c)c[f]=v;
+  }else if(b==='combopart'){
+    const c=S.combos.find(c=>c.id===ds.id);if(c){const [t,p]=v.split('|');c.parts[+ds.i]={typeId:t,tplId:p};}rerender=false;
   }else if(b==='mg'){
-    const g=S.muscleGroups.find(g=>g.id===ds.id);if(g)g.name=v;
+    const g=S.muscleGroups.find(g=>g.id===ds.id);if(!g)return;
+    if(f==='name')g.name=v;else{const n=num(v);g[f]=n!=null&&n>=0?n:null;}
+  }else if(b==='rr'){
+    const r=S.settings.ratioRules[+ds.i];if(!r)return;if(f==='k'){const n=num(v);if(n&&n>0)r.k=n;}else r[f]=v;rerender=false;
+  }else if(b==='disk'){
+    const d=S.settings.dbDiskCounts[+ds.i];if(!d)return;
+    if(f==='w'){const n=num(v);if(n&&n>0)d.w=n;}else{const n=parseInt(v);if(n>=0)d.n=n;}
+    const hl=document.getElementById('hwlist');if(hl)hl.innerHTML=hwChips();
   }else if(b==='st'){
     const st=S.settings;
-    if(f==='dbDisks'||f==='dbHandle'||f==='dbBarOnly'){
-      if(f==='dbDisks')st.dbDisks=v.split(/[;\s]+/).map(num).filter(n=>n!=null&&n>0).slice(0,12);
-      else if(f==='dbHandle'){const n=num(v);if(n!=null&&n>=0)st.dbHandle=n;}
-      else st.dbBarOnly=el.checked;
-      st.handWeights=[...dbCombos(st).keys()];
-      const hl=document.getElementById('hwlist');if(hl)hl.innerHTML=hwChips();
-      rerender=false;
+    if(f==='dbHandle'||f==='dbBarOnly'||f==='dbMaxPerSide'){
+      if(f==='dbHandle'){const n=num(v);if(n!=null&&n>=0)st.dbHandle=n;}else if(f==='dbMaxPerSide'){const n=parseInt(v);if(n>0)st.dbMaxPerSide=n;}else st.dbBarOnly=el.checked;
+      const hl=document.getElementById('hwlist');if(hl)hl.innerHTML=hwChips();rerender=false;
     }
     else if(f==='gymStep'){const n=num(v);if(n&&n>0)st.gymStep=n;}
     else{const n=parseInt(v);if(n>=0&&!isNaN(n))st[f]=(f==='heavyCount')?n:Math.max(1,n);}
@@ -905,73 +1440,110 @@ function bind(el,isSelect){
 function act(a,el){
   const ds=el.dataset;
   switch(a){
-    case 'tab':view.tab=(ds.tab==='today'&&draft)?'today':ds.tab;view.sub=null;render();scrollTo(0,0);break;
+    case 'tab':view.tab=ds.tab;view.sub=null;render();scrollTo(0,0);break;
     case 'resume':view.tab='session';render();scrollTo(0,0);break;
-    case 'start':startSession(ds.type,ds.tpl);break;
+    case 'start':startSession(ds.type,ds.tpl,ds.hurry==='1');break;
+    case 'startcombo':startCombo(ds.id,ds.hurry==='1');break;
     case 'untick':{const t=ymd();const s=sortedSessions().find(s=>s.typeId===ds.type&&s.date===t&&s.kind==='tick');if(s){S.sessions=S.sessions.filter(x=>x!==s);save();render();}break;}
     case 'other':otherPicker();break;
-    case 'rate':{
-      const i=+ds.ex,r=ds.r;
-      if(i<0){draft.rating=draft.rating===r?null:r;saveDraft();el.parentNode.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.r===draft.rating));break;}
-      const e=draft.exercises[i];e.rating=e.rating===r?null:r;if(e.rating)e.collapsed=true;saveDraft();render();if(e.rating)focusNext(i);break;}
+    case 'rate':{if(+ds.ex<0){draft.rating=draft.rating===ds.r?null:ds.r;saveDraft();el.parentNode.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.r===draft.rating));}break;}
+    case 'srate':{
+      const i=+ds.ex,e=draft.exercises[i],s=e.sets[+ds.set];
+      if(s.rating===ds.r){s.rating=null;s.t=null;}else{s.rating=ds.r;if(!s.t)s.t=new Date().toISOString();}
+      saveDraft();
+      if(s.rating&&e.sets.every(x=>x.rating)){e.collapsed=true;saveDraft();render();focusNext(i);}else render();
+      break;}
     case 'exdone':{const i=+ds.ex;draft.exercises[i].collapsed=true;saveDraft();render();focusNext(i);break;}
     case 'expand':{const i=+ds.ex;draft.exercises[i].collapsed=false;saveDraft();render();const c=document.querySelector(`[data-card="${i}"]`);if(c)c.scrollIntoView({block:'start'});break;}
+    case 'exinfo':exInfo(ds.id);break;
+    case 'swap':swapPicker(+ds.ex);break;
+    case 'swapto':{const p=document.getElementById('swapperm');swapEx(+ds.ex,ds.id,!!(p&&p.checked));break;}
+    case 'chainup':swapEx(+ds.ex,ds.id,true);break;
     case 'step':{
-      const e=draft.exercises[+ds.ex],s=e.sets[+ds.set],dir=+ds.d;
+      const e=draft.exercises[+ds.ex],j=+ds.set,s=e.sets[j],dir=+ds.d;
       if(ds.f==='reps'){s.reps=String(Math.max(0,(parseInt(s.reps)||0)+dir));}
-      else{const j=+ds.set,ex=exById(e.exId),old=s.weight;let cur=num(s.weight);
-        if(cur==null&&j>0)cur=num(e.sets[j-1].weight);cur=cur||0;let v;
-        if(ex&&ex.equip==='dumbbell'){const hw=S.settings.handWeights;v=dir>0?(hw.find(w=>w>cur+1e-9)??cur):([...hw].reverse().find(w=>w<cur-1e-9)??0);}
-        else{const st=(ex&&ex.step)||S.settings.gymStep||0.5;v=Math.max(0,Math.round((cur+dir*st)*100)/100);}
-        s.weight=v?fmtIn(v):'';fillDown(e,j,old,+ds.ex);}
-      const inp=document.querySelector(`input[data-bind="set"][data-ex="${ds.ex}"][data-set="${ds.set}"][data-f="${ds.f}"]`);if(inp)inp.value=s[ds.f];
+      else{const ex=exById(e.exId),old=s.weight;let cur=num(s.weight);
+        if(cur==null&&j>0)cur=num(e.sets[j-1].weight);
+        const v=stepW(ex,cur,dir);
+        if(v==null){if(dir<0&&cur!=null&&!weightList(ex)&&!(ex&&ex.base))s.weight='';else break;}
+        else s.weight=v?fmtIn(v):'';
+        fillDown(e,j,old,+ds.ex);}
+      const inp=document.querySelector(`input[data-bind="set"][data-ex="${ds.ex}"][data-set="${j}"][data-f="${ds.f}"]`);if(inp)inp.value=s[ds.f];
       saveDraft();break;}
     case 'tycolor':{const t=typeById(ds.id);if(t){t.color=ds.c;save();render();}break;}
-    case 'addset':{const e=draft.exercises[+ds.ex];const l=e.sets[e.sets.length-1];e.sets.push(l?{...l}:{reps:'10',weight:''});saveDraft();render();break;}
+    case 'addset':{const e=draft.exercises[+ds.ex];const l=e.sets[e.sets.length-1];e.sets.push(l?{reps:l.reps,weight:l.weight,rating:null,t:null}:{reps:'10',weight:'',rating:null,t:null});e.collapsed=false;saveDraft();render();break;}
     case 'delset':draft.exercises[+ds.ex].sets.splice(+ds.set,1);saveDraft();render();break;
     case 'delex':if(confirm('Poistetaanko liike tältä kerralta? Treenipohja ei muutu.')){draft.exercises.splice(+ds.ex,1);saveDraft();render();}break;
     case 'applyhint':{const e=draft.exercises[+ds.ex];e.sets.forEach(s=>{s.weight=fmtIn(e.hint.weight);if(e.hint.reps)s.reps=String(e.hint.reps);});saveDraft();render();break;}
+    case 'applyrange':{const e=draft.exercises[+ds.ex],nm=e.hint.newMax;let n=0;
+      draftParts(draft).forEach(p=>{const ty=typeById(p.typeId),tpl=ty&&ty.templates.find(t=>t.id===p.templateId);if(tpl)tpl.items.forEach(it=>{if(it.exId===e.exId){it.repsMax=nm;n++;}});});
+      e.rmax=nm;e.hint={type:'info',text:`Toistoalue ${e.rmin}–${nm}. Lisää toistoja samalla painolla.`};save();saveDraft();render();toast(n?`Toistoalue ${e.rmin}–${nm} tallennettu pohjaan`:'Toistoalue päivitetty tälle kerralle');break;}
     case 'finish':finishSession();break;
-    case 'discard':if(confirm('Hylätäänkö treeni? Kirjauksia ei tallenneta.')){draft=null;saveDraft();view.tab='today';render();}break;
+    case 'discard':if(confirm(draft.editing?'Perutaanko muokkaus? Muutoksia ei tallenneta.':'Hylätäänkö treeni? Kirjauksia ei tallenneta.')){const ed=draft.editing;draft=null;saveDraft();view.tab=ed?'history':'today';render();}break;
     case 'showsess':showSession(ds.id);break;
+    case 'editsess':editSession(ds.id);break;
     case 'delsess':if(confirm('Poistetaanko kirjaus pysyvästi?')){S.sessions=S.sessions.filter(s=>s.id!==ds.id);save();closeModal();render();toast('Kirjaus poistettu');}break;
-    case 'closemodal':closeModal();break;
+    case 'closemodal':pendingCoach=null;closeModal();break;
     case 'hsub':view.hsub=ds.k;render();break;
+    case 'gomuscles':view.tab='history';view.hsub='muscles';view.mweek=null;render();scrollTo(0,0);break;
     case 'mweek':{const cur=view.mweek||weekStart(ymd());const n=addDays(cur,+ds.d);if(n<=weekStart(ymd()))view.mweek=n;render();break;}
+    case 'report':openReport(ds.ws);break;
+    case 'repcopy':copyText(view.reportTxt,'Raportti kopioitu').then(ok=>{if(!ok){const t=document.getElementById('reptxt');if(t){t.focus();t.select();}toast('Valitse teksti ja kopioi');}});break;
+    case 'repshare':shareOrDownload(`treeniviikko-${isoWeek(view.reportWs)}.md`,view.reportTxt,'text/markdown');break;
+    case 'coachapply':applyCoach();break;
     case 'opentype':view.sub={kind:'type',id:ds.id};render();scrollTo(0,0);break;
     case 'openex':view.sub={kind:'ex',id:ds.id};render();scrollTo(0,0);break;
+    case 'openexplan':view.tab='plan';view.sub={kind:'ex',id:ds.id};render();scrollTo(0,0);break;
     case 'back':view.sub=null;render();break;
     case 'newtype':{const t={id:uid(),color:PALETTE[S.types.length%PALETTE.length],name:'Uusi treenityyppi',schedule:'flexible',quota:1,weekday:1,pair:'',logStyle:'full',templates:[{id:uid(),name:'Perus',note:'',items:[]}]};S.types.push(t);save();view.sub={kind:'type',id:t.id};render();scrollTo(0,0);break;}
-    case 'deltype':if(confirm('Poistetaanko treenityyppi? Historia säilyy.')){S.types=S.types.filter(t=>t.id!==ds.id);save();view.sub=null;render();}break;
+    case 'deltype':if(confirm('Poistetaanko treenityyppi? Historia säilyy.')){S.types=S.types.filter(t=>t.id!==ds.id);S.combos.forEach(c=>c.parts=c.parts.filter(p=>p.typeId!==ds.id));save();view.sub=null;render();}break;
     case 'newtpl':typeById(ds.ty).templates.push({id:uid(),name:'Uusi pohja',note:'',items:[]});save();render();break;
     case 'deltpl':if(confirm('Poistetaanko pohja?')){const t=typeById(ds.ty);t.templates=t.templates.filter(p=>p.id!==ds.tpl);save();render();}break;
-    case 'additem':{const p=typeById(ds.ty).templates.find(p=>p.id===ds.tpl);const first=S.exercises[0];if(!first){alert('Lisää ensin liike liikepankkiin.');break;}p.items.push({exId:first.id,sets:3,repsMin:S.settings.repsMin,repsMax:S.settings.repsMax,weight:''});save();render();break;}
+    case 'additem':{const p=typeById(ds.ty).templates.find(p=>p.id===ds.tpl);const first=S.exercises.find(x=>!x.archived);if(!first){alert('Lisää ensin liike liikepankkiin.');break;}p.items.push({exId:first.id,sets:3,repsMin:S.settings.repsMin,repsMax:S.settings.repsMax,weight:'',core:true});save();render();break;}
     case 'itemup':{const p=typeById(ds.ty).templates.find(p=>p.id===ds.tpl);const i=+ds.i;if(i>0){[p.items[i-1],p.items[i]]=[p.items[i],p.items[i-1]];save();render();}break;}
     case 'itemdel':{const p=typeById(ds.ty).templates.find(p=>p.id===ds.tpl);p.items.splice(+ds.i,1);save();render();break;}
-    case 'newex':{const x={id:uid(),name:'Uusi liike',muscle:(S.muscleGroups[0]||{}).id||'',equip:'machine',step:null};S.exercises.push(x);save();view.sub={kind:'ex',id:x.id};render();scrollTo(0,0);break;}
+    case 'itemcore':{const it=typeById(ds.ty).templates.find(p=>p.id===ds.tpl).items[+ds.i];it.core=it.core===false;save();render();break;}
+    case 'combonew':{const opts=S.types.filter(t=>t.logStyle==='full'&&t.templates.length);if(opts.length<2){alert('Yhdistelmään tarvitaan vähintään kaksi treenityyppiä, joilla on pohja.');break;}
+      S.combos.push({id:uid(),name:'Uusi yhdistelmä',parts:opts.slice(0,2).map(t=>({typeId:t.id,tplId:t.templates[0].id}))});save();render();break;}
+    case 'combodel':if(confirm('Poistetaanko yhdistelmä?')){S.combos=S.combos.filter(c=>c.id!==ds.id);save();render();}break;
+    case 'comboaddpart':{const c=S.combos.find(c=>c.id===ds.id);const t=S.types.find(t=>t.logStyle==='full'&&t.templates.length);if(c&&t){c.parts.push({typeId:t.id,tplId:t.templates[0].id});save();render();}break;}
+    case 'combodelpart':{const c=S.combos.find(c=>c.id===ds.id);if(c){c.parts.splice(+ds.i,1);save();render();}break;}
+    case 'newex':{const g=(S.muscleGroups[0]||{}).id||'';const x={id:uid(),name:'Uusi liike',muscle:g,muscles:g?{[g]:1}:{},equip:'machine',step:null,base:null,ladder:null,desc:'',archived:false,easier:null,next:null};S.exercises.push(x);save();view.sub={kind:'ex',id:x.id};render();scrollTo(0,0);break;}
+    case 'newharder':{const x=exById(ds.id);const y={id:uid(),name:x.name+' (vaikeampi)',muscle:x.muscle,muscles:{...x.muscles},equip:x.equip,step:x.step,base:x.base,ladder:x.ladder?[...x.ladder]:null,desc:'',archived:false,easier:x.id,next:null};
+      S.exercises.push(y);save();view.sub={kind:'ex',id:y.id};render();scrollTo(0,0);toast('Uusi vaihe luotu – nimeä se');break;}
+    case 'exnclear':{const x=exById(ds.id);if(x){x.next=null;save();render();}break;}
+    case 'exarch':{const x=exById(ds.id);if(!x)break;
+      if(!x.archived){const inT=[];S.types.forEach(t=>t.templates.forEach(p=>{if(p.items.some(i=>i.exId===x.id))inT.push(p.name);}));
+        if(inT.length){alert('Liike on käytössä pohjissa: '+inT.join(', ')+'. Poista tai vaihda se ensin pohjista.');break;}}
+      x.archived=!x.archived;save();render();toast(x.archived?'Liike arkistoitu':'Liike palautettu');break;}
     case 'delexl':{
       const used=S.types.some(t=>t.templates.some(p=>p.items.some(i=>i.exId===ds.id)));
       if(used){alert('Liike on käytössä treenipohjassa. Poista se ensin pohjista.');break;}
-      if(confirm('Poistetaanko liike liikepankista? Historia säilyy.')){S.exercises=S.exercises.filter(x=>x.id!==ds.id);save();view.sub=null;render();}break;}
-    case 'mgadd':S.muscleGroups.push({id:uid(),name:'Uusi lihasryhmä'});save();render();break;
+      if(confirm('Poistetaanko liike liikepankista? Historia säilyy. (Arkistointi piilottaa liikkeen poistamatta sitä.)')){S.exercises.forEach(y=>{if(y.easier===ds.id)y.easier=null;});S.exercises=S.exercises.filter(x=>x.id!==ds.id);save();view.sub=null;render();}break;}
+    case 'mgadd':S.muscleGroups.push({id:uid(),name:'Uusi lihasryhmä',min:null,max:null});save();render();break;
     case 'mgdel':{
-      const used=S.exercises.filter(x=>x.muscle===ds.id).length;
-      if(used){alert(`Lihasryhmään kuuluu ${used} liikettä. Vaihda niille ensin toinen lihasryhmä.`);break;}
-      S.muscleGroups=S.muscleGroups.filter(g=>g.id!==ds.id);save();render();break;}
-    case 'reseedprog':if(confirm('Korvataanko treenityypit ja liikepankki oletusohjelmalla? Historia säilyy.')){applySeedProgram(S);save();view.sub=null;render();toast('Oletusohjelma palautettu');}break;
+      const used=S.exercises.filter(x=>x.muscles&&x.muscles[ds.id]).length;
+      if(used){alert(`Lihasryhmää käyttää ${used} liikettä. Poista kerroin niistä ensin.`);break;}
+      S.muscleGroups=S.muscleGroups.filter(g=>g.id!==ds.id);S.settings.ratioRules=S.settings.ratioRules.filter(r=>r.a!==ds.id&&r.b!==ds.id);save();render();break;}
+    case 'rradd':{const g=S.muscleGroups;if(g.length<2)break;S.settings.ratioRules.push({a:g[0].id,b:g[1].id,k:1});save();render();break;}
+    case 'rrdel':S.settings.ratioRules.splice(+ds.i,1);save();render();break;
+    case 'diskadd':S.settings.dbDiskCounts.push({w:1,n:4});save();render();break;
+    case 'diskdel':S.settings.dbDiskCounts.splice(+ds.i,1);save();render();break;
+    case 'reseedprog':if(confirm('Korvataanko treenityypit, yhdistelmät ja liikepankki oletusohjelmalla? Historia säilyy.')){applySeedProgram(S);S=normalize(S);save();view.sub=null;render();toast('Oletusohjelma palautettu');}break;
     case 'exportjson':exportJson();break;
     case 'exportcsv':exportCsv();break;
     case 'copytsv':copyTsv();break;
     case 'import':document.getElementById('importfile').click();break;
-    case 'reset':if(confirm('Tyhjennetäänkö KAIKKI tiedot? Tätä ei voi perua.')&&confirm('Oletko varma? Tallenna varmuuskopio ensin, jos haluat säilyttää historian.')){S=seed();draft=null;save();saveDraft();view.tab='today';render();}break;
+    case 'reset':if(confirm('Tyhjennetäänkö KAIKKI tiedot? Tätä ei voi perua.')&&confirm('Oletko varma? Tallenna varmuuskopio ensin, jos haluat säilyttää historian.')){S=normalize(seed());draft=null;save();saveDraft();view.tab='today';render();}break;
   }
 }
 function onChange(kind,el){
-  if(kind==='addex'&&el.value){draft.exercises.push(buildEx(el.value,null));saveDraft();render();}
+  if(kind==='addex'&&el.value){draft.exercises.push(buildEx(el.value,null,0));saveDraft();render();}
   if(kind==='hex'){view.hex=el.value;render();}
+  if(kind==='coachpick'&&pendingCoach){const o=pendingCoach[el.dataset.k][+el.dataset.i];if(o)o.on=el.checked;const b=document.getElementById('coachbtn');if(b)b.textContent=coachBtnLabel();}
 }
 document.addEventListener('click',e=>{
-  if(e.target.id==='modalbg'){closeModal();return;}
+  if(e.target.id==='modalbg'){pendingCoach=null;closeModal();return;}
   const el=e.target.closest('[data-act]');if(!el||el.tagName==='SELECT'||el.disabled)return;act(el.dataset.act,el);
 });
 document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.getAttribute&&e.target.getAttribute('role')==='button'){e.preventDefault();e.target.click();}});
@@ -983,7 +1555,7 @@ document.addEventListener('change',e=>{const el=e.target;if(!el.dataset)return;
 function openModal(html){document.getElementById('modal').innerHTML=`<div id="modalbg"><div class="panel">${html}</div></div>`;}
 function closeModal(){document.getElementById('modal').innerHTML='';}
 let toastT=null;
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2200);}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2400);}
 function render(){
   const v={today:vToday,session:vSession,history:vHistory,plan:vPlan,settings:vSettings}[view.tab]||vToday;
   document.body.classList.toggle('insession',view.tab==='session'&&!!draft);

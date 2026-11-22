@@ -1,5 +1,5 @@
 // Vaihda versionumero aina, kun julkaiset uuden version.
-const CACHE = 'treeni-v5';
+const CACHE = 'treeni-v7';
 const ASSETS = ['./', './index.html', './manifest.json', './icon-180.png', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
